@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/* 全体の背景とフォント設定 */
+body {
+    background-color: #fff6e4; /* 明るい背景色 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    text-align: center; /* 中央揃え */
+}
+
+/* ページタイトル */
+h2 {
+    margin-top: 20px;
+    font-size: 28px;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 水平線のスタイル */
+hr {
+    width: 80%;
+    margin: 20px auto;
+    border: none;
+    border-top: 2px solid #ddd;
+}
+
+/* リンクのデザイン */
+a {
+    display: inline-block;
+    margin: 15px 0;
+    padding: 10px 20px;
+    background-color: rgb(255, 128, 64); /* オレンジ */
+    color: #fff; /* 白文字 */
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+a:hover {
+    background-color: red; /* 赤 */
+    transform: translateY(-3px);
+}
+
+/* ボタンのスタイル (フォームのログアウトボタン) */
+form {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+form input[type="submit"] {
+    padding: 10px 20px;
+    background-color: rgb(255, 128, 64); /* オレンジ */
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="submit"]:hover {
+    background-color: red; /* 赤 */
+    transform: translateY(-3px);
+}
+
+/* レイアウトの中央揃え */
+body > a, body > form {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 300px; /* 最大幅を指定 */
+}
+
+/* ログアウトボタンのスタイル */
+.btn-logout {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 12px 20px;
+    background-color: #ff7043; /* 落ち着いたオレンジ */
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 8px; /* 丸みを持たせる */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    background-color: #d84315; /* 濃いオレンジ */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px); /* 軽く浮き上がるエフェクト */
+}
+
+/* 隠しフォームの設定 */
+form#logout-form {
+    display: none;
+}

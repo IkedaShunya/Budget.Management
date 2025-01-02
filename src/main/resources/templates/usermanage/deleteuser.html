@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>削除確認</title>
+    <link th:href="@{/css/deleteConfirmation.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>削除確認</h1>
+<p>以下の利用者情報を削除してよろしいですか？</p>
+
+<div class="user-info-card">
+    <div class="info-row">
+        <span class="info-label">ID      :</span>
+        <span class="info-value" th:text="${userInf.userId}"></span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">ユーザー名:</span>
+        <span class="info-value" th:text="${userInf.userName}"></span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">表示名   :</span>
+        <span class="info-value" th:text="${userInf.displayName}"></span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">権限    :</span>
+        <span class="info-value" th:text="${userInf.authority}"></span>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <!-- 削除ボタン -->
+    <form th:action="@{/usermanage/delete/{id}(id=${userInf.userId})}" method="post">
+        <button type="submit" class="delete-btn">削除</button>
+    </form>
+
+    <!-- 戻るボタン -->
+    <a th:href="@{/usermanage/userlist}" class="cancel-btn">キャンセル</a>
+</div>
+</body>
+</html>

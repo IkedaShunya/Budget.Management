@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/editUser.css}" rel="stylesheet" />
+    <title>利用者情報の編集</title>
+</head>
+<body>
+<h1>利用者情報の編集</h1>
+<form th:action="@{/usermanage/edit/confirm}" th:object="${userInf}" method="post">
+    <div>
+        ID: <span th:text="${userInf.userId}"></span>
+    </div>
+    <div>
+        <label for="userId"></label>
+        <input type="hidden" id="userId" th:field="*{userId}">
+    </div>
+    <div>
+        <label for="userName">ユーザー名：</label>
+        <input type="text" id="userName" th:field="*{userName}">
+    </div>
+    <div>
+        <label for="password">パスワード(変更しない場合は未入力) ：</label>
+        <input type="password" id="password" th:field="*{password}" th:value="${userInf.password}">
+    </div>
+    <div>
+        <label for="displayName">表示名：</label>
+        <input type="text" id="displayName" th:field="*{displayName}">
+    </div>
+    <div>
+        <label for="email">アドレス：</label>
+        <input type="text" id="email" th:field="*{email}">
+    </div>
+    <div>
+        <label for="authority">権限:</label>
+        <select id="authority" th:field="*{authority}">
+            <option value="ADMIN">管理者</option>
+            <option value="USER">一般ユーザー</option>
+        </select>
+    </div>
+    <div>
+        <label for="deleteFlag">削除</label>
+        <!-- チェックボックスが未チェックの場合のデフォルト値 -->
+<!--        チェックボックスが未チェックの場合、ブラウザはその値を送信しないため、<input type="hidden"> でデフォルト値 (0) を補完します。-->
+<!--        <input type="hidden" th:field="*{deleteFlag}" value="0" />-->
+        <!-- チェックボックスがチェックされた場合の値 -->
+        <input type="checkbox" id="deleteFlag"  name ="deleteFlag"  th:field="*{deleteFlag}" value="1"/>
+    </div>
+
+    <div>
+        <button type="submit"> 編集</button>
+    </div>
+</form>
+</body>
+</html>

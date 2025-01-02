@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/* 背景全体のスタイル */
+body {
+    background-color: #fff6e4; /* 背景色 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ページタイトル */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 28px;
+}
+
+/* メッセージ表示部分 */
+p {
+    text-align: center;
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* 利用者情報のカード */
+.user-info-card {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+    justify-content: flex-start;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #555;
+    width: 100px; /* ラベルの幅を固定 */
+    text-align: right; /* 右揃えにする */
+    padding-right: 10px; /* 値との間隔を空ける */
+}
+
+.info-value {
+    color: #333;
+    flex: 1; /* 値がラベルの右側に揃う */
+    text-align: left; /* 左揃え */
+}
+
+
+/* アクションボタンのスタイル */
+.action-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.delete-btn {
+    display: inline-block;
+    width: 150px;
+    padding: 10px 15px;
+    background-color: rgb(255, 128, 64);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.delete-btn:hover {
+    background-color: red;
+}
+
+.cancel-btn {
+    display: inline-block;
+    width: 150px;
+    padding: 10px 15px;
+    background-color: #ddd;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.cancel-btn:hover {
+    background-color: #ccc;
+}

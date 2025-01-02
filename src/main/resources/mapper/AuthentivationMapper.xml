@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--どのマッパーに紐づくか定義する-->
+<mapper namespace="com.example.Budget.Management.repository.AuthenticationRepository">
+
+    <!--id=の部分はメソッド名 resultType=の部分は結果のオブジェクト名-->
+    <!-- ユーザー名で認証情報の検索-->
+    <select id="selectByUsername" resultType="com.example.Budget.Management.entity.User">
+        SELECT user_name, password, authority, display_name,delete_flag FROM authentications WHERE user_name = #{userName}
+    </select>
+
+</mapper>

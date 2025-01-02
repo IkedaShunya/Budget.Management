@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>登録確認</title>
+  <link th:href="@{/css/deleteConfirmation.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>登録確認</h1>
+<p>以下の利用者情報を登録してよろしいですか？</p>
+
+<div class="user-info-card">
+  <div class="info-row">
+    <span class="info-label">ユーザー名:</span>
+    <span class="info-value" th:text="${user.userName}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">パスワード   :</span>
+    <span class="info-value" >******</span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">表示名   :</span>
+    <span class="info-value" th:text="${user.displayName}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">権限    :</span>
+    <span class="info-value" th:text="${user.authority}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">アドレス    :</span>
+    <span class="info-value" th:text="${user.email}"></span>
+  </div>
+</div>
+
+<div class="action-buttons">
+
+  <form  th:action="@{/usermanage/register/execute}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{userName}">
+    <input type="hidden" th:field="*{password}">
+    <input type="hidden" th:field="*{displayName}">
+    <input type="hidden" th:field="*{email}">
+    <input type="hidden" th:field="*{authority}">
+    <button type="submit" class="delete-btn">確定</button>
+  </form>
+
+  <!-- 戻るボタン -->
+  <a th:href="@{/usermanage/registeruser}" class="cancel-btn">キャンセル</a>
+</div>
+</body>
+</html>
