@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/editUser.css}" rel="stylesheet" />
+    <title>利用者情報を登録</title>
+</head>
+<body>
+<h1>利用者情報を登録</h1>
+<form th:action="@{/usermanage/register/confirm}" th:object="${user}" method="post">
+    <div>
+        <label for="userName">ユーザー名：</label>
+        <input type="text" id="userName" th:field="*{userName}">
+    </div>
+    <div>
+        <label for="password">パスワード：</label>
+        <input type="password" id="password" th:field="*{password}">
+    </div>
+    <div>
+        <label for="displayName">表示名：</label>
+        <input type="text" id="displayName" th:field="*{displayName}">
+    </div>
+    <div>
+        <label for="email">アドレス：</label>
+        <input type="text" id="email" th:field="*{email}">
+    </div>
+    <div>
+        <label for="authority">権限:</label>
+        <select id="authority" th:field="*{authority}">
+            <option value="ADMIN">管理者</option>
+            <option value="USER">一般ユーザー</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">登録</button>
+    </div>
+</form>
+</body>
+</html>

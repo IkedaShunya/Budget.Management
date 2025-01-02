@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/userlist.css}" rel="stylesheet" />
+    <title>ユーザー情報一覧</title>
+</head>
+<body>
+<h1>利用者一覧</h1>
+<div th:if="${message}" style="text-align: left; color: red; font-weight: bold;">
+    <ul>
+        <li th:text="${message}"></li>
+    </ul>
+</div>
+<table border="1">
+<thead>
+<tr>
+    <th>ID</th>
+    <th>ユーザー名</th>
+    <th>表示名</th>
+    <th>権限</th>
+    <th>emailアドレス</th>
+    </tr>
+</thead>
+<tbody>
+<tr th:each ="user : ${users}">
+    <td th:text="${user.userId}">1</td>
+    <td th:text="${user.userName}">ikeda</td>
+    <td th:text="${user.displayName}">iked</td>
+    <td th:text="${user.authority}">管理者</td>
+    <td th:text="${user.email}">アドレス</td>
+</tr>
+</tbody>
+</table>
+<p>
+    <a th:href="@{/usermanage/}" class="btn">メニューに戻る</a>
+</p>
+<p>
+    <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+</p>
+</body>
+</html>

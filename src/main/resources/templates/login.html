@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <!-- デザインを統一するため、style.css を読み込む -->
+    <link th:href="@{/css/loginStyle.css}" rel="stylesheet" />
+</head>
+<body>
+<!-- 背景バナー & ロゴなどがあればメニュー画面同様配置してもOK-->
+<div class="relative">
+<section class="loop">
+    <div class="loop__box">
+        <img src="/images/banner.png" alt="banner">
+        <img src="/images/banner.png" alt="banner">
+    </div>
+</section>
+    <p class="resizeimage">
+        <img src="images/logo.png" class="absolute" alt="logo">
+    </p>
+</div>
+
+<h2 class="login-title">ログイン画面</h2>
+
+<!-- エラー表示 -->
+<div th:if="${param.error}" class="error-message">
+    ユーザー名またはパスワードが違います
+</div>
+<div th:if="${param.logout}" class="logout-message">
+    ログアウトしました
+</div>
+
+<!-- ログインフォームを中央寄せ -->
+<div class="login-container">
+    <form th:action="@{/authentication}" method="post" th:object="${loginForm}">
+        <div class="form-group">
+            <label for="usernameInput">username</label>
+            <input type="text" th:field="*{usernameInput}">
+        </div>
+        <div class="form-group">
+            <label for="passwordInput">password</label>
+            <input type="password" th:field="*{passwordInput}">
+        </div>
+        <div class="form-action">
+            <button type="submit" class="c-btn big">login</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

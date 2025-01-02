@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+/* 背景やループバナーはメニュー画面同様 */
+
+body {
+    background-color: #fff; /* 白背景 */
+    font-family: sans-serif;
+}
+
+.loop {
+    overflow: hidden;
+}
+.loop__box {
+    display: flex;
+    width: 100vw;
+}
+.loop__box img {
+    min-width: 100vw;
+    height: 200px; /* バナー画像の高さ */
+}
+.loop__box img:first-child {
+    animation: loop 50s -25s linear infinite;
+}
+.loop__box img:last-child {
+    animation: loop2 50s linear infinite;
+}
+
+@keyframes loop {
+    0% {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+@keyframes loop2 {
+    0% {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-200%);
+    }
+}
+
+/* ロゴの配置 */
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+    top: 40%; /* 上から50% */
+    left: 50%; /* 左から50% */
+    transform: translate(-50%, -50%); /* 完全中央揃え */
+}
+.resizeimage img {
+    width: 250px;
+    height: 90px;
+}
+
+/* タイトル */
+.login-title {
+    text-align: center;
+    font-size: 24px;
+    margin: 30px 0 0px; /* ロゴとの間隔を広げる */
+}
+
+/* エラー・ログアウトメッセージ */
+.error-message {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+.logout-message {
+    color: blue;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ログインフォーム */
+.login-container {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 30px;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* ボタンのスタイル */
+.c-btn.big {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #337ab7;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 40px;
+    transition: background-color 0.3s ease;
+}
+.c-btn.big:hover {
+    background-color: #286090;
+}

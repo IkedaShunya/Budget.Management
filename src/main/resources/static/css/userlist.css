@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+/* 背景全体のスタイル */
+body {
+    background-color: #fff6e4; /* 背景色 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ページタイトル */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 28px;
+}
+
+/* テーブル全体のスタイル */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+    height: 60px; /* セルの高さ */
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+td:hover {
+    background-color: #ffe0cc; /* ホバー時の背景色 */
+}
+
+/* テーブル行の交互スタイル */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 編集ボタンのスタイル */
+.edit-btn {
+    padding: 8px 12px;
+    color: #fff;
+    background-color: rgb(255, 128, 64);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none; /* リンクの下線を削除 */
+}
+
+.edit-btn:hover {
+    background-color: red;
+}
+
+/* ユーザー情報の表示ブロック */
+.user-info-block {
+    width: 300px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-info-block span {
+    font-weight: bold;
+    color: #555;
+}
+
+/* テーブル下部に戻るリンクのスタイル */
+.return-link {
+    text-align: center;
+    margin: 20px;
+}
+
+.return-link a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: rgb(255, 128, 64);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.return-link a:hover {
+    background-color: red;
+}
+
+.btn, #logout-form input[type="submit"] {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px 15px;
+    width: 200px;
+    background-color: rgb(255, 128, 64);
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+/* ホバー時のスタイル変更 */
+.btn:hover, #logout-form input[type="submit"]:hover {
+    background-color: red;
+}
+
+

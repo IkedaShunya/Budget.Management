@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>編集確認</title>
+  <link th:href="@{/css/deleteConfirmation.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>編集確認</h1>
+<p>以下の利用者情報に編集してよろしいですか？</p>
+
+<div class="user-info-card">
+  <div class="info-row">
+    <span class="info-label">ID      :</span>
+    <span class="info-value" th:text="${userInf.userId}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">ユーザー名:</span>
+    <span class="info-value" th:text="${userInf.userName}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">パスワード   :</span>
+    <span class="info-value" >******</span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">表示名   :</span>
+    <span class="info-value" th:text="${userInf.displayName}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">アドレス    :</span>
+    <span class="info-value" th:text="${userInf.email}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">権限    :</span>
+    <span class="info-value" th:text="${userInf.authority}"></span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">削除フラグ :</span>
+    <!-- deleteFlagが0の場合の表示 -->
+    <span class="info-value" th:if="${userInf.deleteFlag == 0}">未削除</span>
+    <!-- deleteFlagが1の場合の表示 -->
+    <span class="info-value" th:if="${userInf.deleteFlag == 1}">削除済み</span>
+  </div>
+</div>
+
+<div class="action-buttons">
+  <!-- 削除ボタン -->
+  <form  th:action="@{/usermanage/edit/execute}" th:object="${userInf}" method="post">
+    <input type="hidden" th:field="*{userId}">
+    <input type="hidden" th:field="*{userName}">
+    <input type="hidden" th:field="*{password}">
+    <input type="hidden" th:field="*{displayName}">
+    <input type="hidden" th:field="*{email}">
+    <input type="hidden" th:field="*{authority}">
+    <input type="hidden" th:field="*{deleteFlag}">
+    <button type="submit" class="delete-btn">確定</button>
+  </form>
+
+  <!-- 戻るボタン -->
+  <a th:href="@{/usermanage/edit/{id}(id=${userInf.userId})}" class="cancel-btn">キャンセル</a>
+</div>
+</body>
+</html>
