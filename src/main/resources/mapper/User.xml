@@ -22,6 +22,18 @@
         WHERE user_id=#{id}
     </select>
 
+    <select id="selectuserByuserName" resultType="com.example.Budget.Management.entity.User">
+        SELECT user_name, password, authority, display_name ,email, user_id, delete_flag
+        FROM authentications
+        WHERE user_name=#{userName}
+    </select>
+
+    <select id="selectuserByemail" resultType="com.example.Budget.Management.entity.User">
+        SELECT user_name, password, authority, display_name ,email, user_id, delete_flag
+        FROM authentications
+        WHERE email=#{email}
+    </select>
+
 <!--    parameterTypeは必要か？-->
     <update id="softDeleteByUser" parameterType="com.example.Budget.Management.entity.User">
         UPDATE authentications SET delete_flag =1 WHERE user_id=#{id}

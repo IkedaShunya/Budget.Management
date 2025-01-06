@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>費用入力</title>
+</head>
+<body>
+<h1>費用入力</h1>
+<form action="/expenses/save" method="post">
+    <h2>固定費</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>項目名</th>
+            <th>金額 (円)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>家賃</td>
+            <td><input type="number" name="fixedCosts[rent]" placeholder="例: 50000" required></td>
+        </tr>
+        <tr>
+            <td>光熱費</td>
+            <td><input type="number" name="fixedCosts[utilities]" placeholder="例: 10000" required></td>
+        </tr>
+        <tr>
+            <td>通信費</td>
+            <td><input type="number" name="fixedCosts[communication]" placeholder="例: 5000" required></td>
+        </tr>
+        <tr>
+            <td>保険料</td>
+            <td><input type="number" name="fixedCosts[insurance]" placeholder="例: 20000" required></td>
+        </tr>
+        <tr>
+            <td>サブスクリプション</td>
+            <td><input type="number" name="fixedCosts[subscription]" placeholder="例: 1000"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>目標変動費</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>項目名</th>
+            <th>金額 (円)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>食費</td>
+            <td><input type="number" name="variableCosts[food]" placeholder="例: 30000" required></td>
+        </tr>
+        <tr>
+            <td>交通費</td>
+            <td><input type="number" name="variableCosts[transportation]" placeholder="例: 15000" required></td>
+        </tr>
+        <tr>
+            <td>娯楽費</td>
+            <td><input type="number" name="variableCosts[entertainment]" placeholder="例: 10000" required></td>
+        </tr>
+        <tr>
+            <td>雑費</td>
+            <td><input type="number" name="variableCosts[miscellaneous]" placeholder="例: 5000"></td>
+        </tr>
+        <tr>
+            <td>医療費</td>
+            <td><input type="number" name="variableCosts[medical]" placeholder="例: 2000"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit">保存</button>
+</form>
+</body>
+</html>

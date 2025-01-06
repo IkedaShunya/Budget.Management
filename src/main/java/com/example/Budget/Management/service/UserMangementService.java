@@ -4,6 +4,7 @@ import com.example.Budget.Management.entity.User;
 import com.example.Budget.Management.repository.UserRepository;
 import com.example.Budget.Management.utility.PasswordGenerator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,8 +74,25 @@ public class UserMangementService {
     public void insertUsrinf(User user){
         String encodedPassword = PasswordGenerator.passwordGenerator(user.getPassword());
         user.setPassword(encodedPassword);
+
         repository.insertUserinf(user);
     }
+
+    /**
+     * ユーザー登録チェック
+     */
+    public void insertcheck(User user){
+        if(repository.selectuserByuserName(user.getUserName())  != null && repository.selectuserByemail(user.getEmail())  != null){
+            throw new DuplicateKeyException("同じユーザー名,メールアドレスが既に存在します");
+        }
+        if (repository.selectuserByuserName(user.getUserName())  != null) {
+            throw new DuplicateKeyException("同じユーザー名が既に存在します");
+        }else if(repository.selectuserByemail(user.getEmail())  != null){
+            throw new DuplicateKeyException("同じアドレスが既に存在します");
+        }
+    }
+
+
 
 
 }

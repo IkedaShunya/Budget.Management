@@ -26,6 +26,15 @@ public interface UserRepository {
     User selectuserByid(int id);
 
     /**
+     * 指定したユーザー名のユーザー情報を検索する
+     */
+    User selectuserByuserName(String userName);
+    /**
+     * 指定したユーザー名のユーザー情報を検索する
+     */
+    User selectuserByemail(String email);
+
+    /**
      * 指定されたユーザーを削除する
      */
     void softDeleteByUser(int id);

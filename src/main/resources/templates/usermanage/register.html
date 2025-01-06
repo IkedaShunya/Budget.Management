@@ -6,8 +6,13 @@
     <title>利用者情報を登録</title>
 </head>
 <body>
-<h1>利用者情報を登録</h1>
+<h1>利用者情報登録</h1>
 <form th:action="@{/usermanage/register/confirm}" th:object="${user}" method="post">
+    <div th:if="${errorMessage}" style="text-align: left; color: red; font-weight: bold;">
+        <ul>
+            <li th:text="${errorMessage}"></li>
+        </ul>
+    </div>
     <div>
         <label for="userName">ユーザー名：</label>
         <input type="text" id="userName" th:field="*{userName}">
