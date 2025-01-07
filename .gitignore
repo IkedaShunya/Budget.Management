@@ -36,5 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-### application.properties ###
-*.properties
+# application.properties を無視する
+application.properties
