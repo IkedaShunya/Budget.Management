@@ -6,7 +6,7 @@
     <!--id=の部分はメソッド名 resultType=の部分は結果のオブジェクト名-->
     <!-- ユーザー名で認証情報の検索-->
     <select id="selectByUsername" resultType="com.example.Budget.Management.entity.User">
-        SELECT user_name, password, authority, display_name,delete_flag FROM authentications WHERE user_name = #{userName}
+        SELECT user_name, password, authority, user_id,display_name,delete_flag FROM authentications WHERE user_name = #{userName}
     </select>
 
 </mapper>

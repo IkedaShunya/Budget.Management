@@ -48,6 +48,7 @@ public class LoginUserDetailsServiceImpl implements UserDetailsService {
                     user.getPassword(),
                     //getAuthorityListメソッドは特定のユーザーが持つ権限をリスト形式で返す
                     getAuthorityList(user.getAuthority()),
+                    user.getUserId(),
                     user.getDisplayName(),
                     user.getEmail());
         }else{

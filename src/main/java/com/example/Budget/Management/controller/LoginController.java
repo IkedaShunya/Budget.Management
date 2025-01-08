@@ -16,4 +16,6 @@ public class LoginController {
         //templatesフォルダ配下
         return "login";
     }
+
+
 }

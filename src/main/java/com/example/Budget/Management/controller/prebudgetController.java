@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class prebudgetController {
     @GetMapping("/input")
     public String inputdisplay(){
+
+
+
         return "projectedexpend/preinput";
     }
 
