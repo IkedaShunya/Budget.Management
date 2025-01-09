@@ -16,7 +16,7 @@ public class ExpenseCategory {
     /** 固定費フラグ*/
     private int isFixedCost;
     /** 予測収入金額*/
-    private int estimateAmount;
+    private int estimatedAmount;
 
 
 

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/css/userlist.css}" rel="stylesheet" />
+    <link th:href="@{/css/categorylist.css}" rel="stylesheet" />
     <title>カテゴリー一覧</title>
 </head>
 <body>
@@ -12,34 +12,64 @@
         <li th:text="${message}"></li>
     </ul>
 </div>
-<h2>固定費</h2>
+<h2>収入</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>形態</th>
+        <th>カテゴリ名</th>
+        <th>予想収入金額 (円)</th>
+        <th>削除</th>
+        <th>編集</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each ="incomeCategory : ${incomeCategories}">
+        <td th:text="${incomeCategory.isRegularIncome == 1 ? '定期' : (incomeCategory.isRegularIncome == 0 ? '不定期' : null)}">定期</td>
+        <td th:text="${incomeCategory.categoryName}">給与</td>
+        <td th:text="${incomeCategory.estimatedAmount + '円'}">1000円</td>
+        <td>
+            <a href="#" class="btn" onclick="document.getElementById('delete-form-${incomeCategory.categoryId}').submit(); return false;">削除</a>
+        </td>
+        <form id="delete-form-${incomeCategory.categoryId}" th:action="@{/category/delete-incomeCategory}" method="post" style="display: none;">
+            <input type="hidden" name="category_id" th:value="${incomeCategory.categoryId}">
+            <!-- 必要であればCSRFトークンを含める -->
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        </form>
+        <td><a th:href="@{/category/edit-incomeCategory/{id}(id=${incomeCategory.categoryId})}">編集</a></td>
+    </tr>
+    </tbody>
+</table>
+<h2>支出</h2>
 <table border="1">
 <thead>
 <tr>
     <th>種別</th>
     <th>カテゴリ名</th>
-    <th>金額 (円)</th>
+    <th>予想支出金額 (円)</th>
     <th>削除</th>
     <th>編集</th>
  </tr>
 </thead>
     <tbody>
-    <tr th:each ="category : ${categorylist}">
-        <td th:text="${user.userId}">1</td>
-        <td th:text="${user.userName}">ikeda</td>
-        <td th:text="${user.displayName}">iked</td>
-        <td th:text="${user.authority}">管理者</td>
-        <td th:text="${user.email}">管理者</td>
+    <tr th:each ="expenseCategory : ${expenseCategories}">
+        <td th:text="${expenseCategory.isFixedCost == 1 ? '固定費' : (expenseCategory.isFixedCost == 0 ? '変動費' : null)}">固定費</td>
+        <td th:text="${expenseCategory.categoryName}">家賃</td>
+        <td th:text="${expenseCategory.estimatedAmount + '円'}">1000円</td>
         <td>
-            <!-- deleteFlag が １ の場合に「●」を表示 -->
-            <span th:text="${user.deleteFlag == 1} ? '●' : ''"></span>
+            <a href="#" class="btn" onclick="document.getElementById('delete-form-${expenseCategory.categoryId}').submit(); return false;">削除</a>
         </td>
-        <td><a th:href="@{/usermanage/edit/{id}(id=${user.userId})}">編集</a></td>
+        <form id="delete-form-${expenseCategory.categoryId}" th:action="@{/category/delete-expenseCategory}" method="post" style="display: none;">
+            <input type="hidden" name="category_id" th:value="${expenseCategory.categoryId}">
+            <!-- 必要であればCSRFトークンを含める -->
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        </form>
+        <td><a th:href="@{/category/edit-expenseCategory/{id}(id=${expenseCategory.categoryId})}">編集</a></td>
     </tr>
     </tbody>
 </table>
 <p>
-    <a th:href="@{/usermanage/}" class="btn">メニューに戻る</a>
+    <a th:href="@{/}" class="btn">メニューに戻る</a>
 </p>
 <p>
     <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>

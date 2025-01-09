@@ -18,6 +18,8 @@ public class IncomeCategory {
     private String categoryName;
     /** 予測収入金額*/
     private int estimatedAmount;
+    /**定期収入*/
+    private int isRegularIncome;
 
 
 }

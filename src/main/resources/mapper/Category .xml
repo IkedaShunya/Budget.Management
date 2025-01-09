@@ -3,14 +3,16 @@
 <!--どのマッパーに紐づくか定義する-->
 <mapper namespace="com.example.Budget.Management.repository.CategoryRepository">
     <select id="selectincategoryByuserId" resultType="com.example.Budget.Management.entity.IncomeCategory">
-        SELECT category_id, user_id, category_name, estimated_amount
+        SELECT category_id, user_id, category_name, estimated_amount, is_regular_income
         FROM income_category
-        WHERE user_id = #{userId} AND delete_flag=0;
+        WHERE user_id = #{userId} AND delete_flag=0
+        ORDER BY is_regular_income ASC;
     </select>
-    <select id="selectexcategoryByuserId" resultType="com.example.Budget.Management.entity.IncomeCategory">
+    <select id="selectexcategoryByuserId" resultType="com.example.Budget.Management.entity.ExpenseCategory">
         SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount
         FROM expense_category
-        WHERE user_id = #{userId} AND delete_flag=0;
+        WHERE user_id = #{userId} AND delete_flag=0
+        ORDER BY is_fixed_cost ASC;
     </select>
 
 </mapper>

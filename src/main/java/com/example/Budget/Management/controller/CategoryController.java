@@ -3,7 +3,10 @@ package com.example.Budget.Management.Controller;
 
 import com.example.Budget.Management.Service.CategoryService;
 import com.example.Budget.Management.domain.Category;
+import com.example.Budget.Management.entity.ExpenseCategory;
+import com.example.Budget.Management.entity.IncomeCategory;
 import com.example.Budget.Management.entity.LoginUser;
+import com.example.Budget.Management.repository.CategoryRepository;
 import com.example.Budget.Management.utility.SessioninfGet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +21,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/category")
 public class CategoryController {
     /** DI*/
-    private final CategoryService service;
-    private final SessioninfGet sessioninf;
+    private CategoryService service;
+    private SessioninfGet sessioninf;
+
+    @Autowired
+    public CategoryController(CategoryService service,SessioninfGet sessioninf) {
+        this.service = service;
+        this.sessioninf = sessioninf;
+    }
 
     /**
      * メニュー画面
@@ -36,10 +44,13 @@ public class CategoryController {
     /**
      * ユーザー情報一覧をmodelに入れて、Viewを返す
      */
-    @GetMapping("/categorylist")
+    @GetMapping("/list")
     public String getcategorylist(Model model){
-        model.addAttribute("category",service.searchCategory(sessioninf.getLoginUserId()));
-        return "category/list";
+        Category categories = service.searchCategory(sessioninf.getLoginUserId());
+        model.addAttribute("incomeCategories",categories.getIncomeCategories());
+        model.addAttribute("expenseCategories",categories.getExpenseCategories());
+
+        return "category/categorylist";
     }
 
 

@@ -5,7 +5,9 @@ import com.example.Budget.Management.entity.ExpenseCategory;
 import com.example.Budget.Management.entity.IncomeCategory;
 import com.example.Budget.Management.entity.User;
 import com.example.Budget.Management.repository.CategoryRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +17,17 @@ import java.util.List;
  */
 
 @Service
-@RequiredArgsConstructor
 public class CategoryService {
-
     /** DI*/
-    private final CategoryRepository repository;
+    private CategoryRepository repository;
+
+
+    @Autowired
+    public CategoryService(CategoryRepository repository) {
+
+        this.repository = repository;
+    }
+
 
     /**
      * カテゴリ一覧の検索
