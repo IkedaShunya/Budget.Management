@@ -19,7 +19,8 @@
     ログイン情報のname値に書き換わる
 </div>
 <br>
-
+<a th:href="@{/category}">カテゴリーメニュー画面</a>
+<br>
 <!--authenticationはspringsecurityの認証情報にアクセスするためのオブジェクト-->
 <!--principalは認証プロセスで確認されたユーザの情報を保持する-->
 <div th:text="${#authentication.principal.displayName}">

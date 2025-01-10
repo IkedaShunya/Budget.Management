@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * 受講生情報を扱うリポジトリ
- *
  * 全件、条件検索、コース検索が行えるクラス
  */
 
@@ -27,5 +26,46 @@ public interface CategoryRepository {
      */
     List<ExpenseCategory> selectexcategoryByuserId(int userId);
 
+    /**
+     * 指定したカテゴリーIDを検索する
+     */
+    ExpenseCategory selectexcategoryCategoryId(int categoryId);
+
+
+    /**
+     * 収入カテゴリの編集
+     */
+    void updateExpensecategoryinf(ExpenseCategory expensecategory);
+
+    /**
+     * 指定したカテゴリーIDを検索する
+     */
+    IncomeCategory selectincategoryCategoryId(int categoryId);
+
+
+    /**
+     * 収入カテゴリの編集
+     */
+    void updateIncomecategoryinf(IncomeCategory incomeCategory);
+
+    /**
+     *収入カテゴリの削除
+     */
+    void deleteIncomeCategory(int categoryId);
+
+    /**
+     *支出カテゴリの削除
+     */
+    void deleteExpenseCategory(int categoryId);
+
+    /**
+     *収入カテゴリの作成
+     */
+    void insertIncomeCategory(IncomeCategory incomeCategory);
+
+    /**
+     *支出カテゴリの作成
+     */
+    void insertExpenseCategory(ExpenseCategory expensecategory);
 
 }

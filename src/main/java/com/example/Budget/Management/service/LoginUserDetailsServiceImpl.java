@@ -1,9 +1,11 @@
 package com.example.Budget.Management.service;
 
+import com.example.Budget.Management.Service.CategoryService;
 import com.example.Budget.Management.entity.User;
 import com.example.Budget.Management.entity.LoginUser;
 import com.example.Budget.Management.entity.Role;
 import com.example.Budget.Management.repository.AuthenticationRepository;
+import com.example.Budget.Management.utility.SessioninfGet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,12 +22,15 @@ import java.util.List;
  * カスタム認証サービス
  */
 @Service
-@RequiredArgsConstructor
 public class LoginUserDetailsServiceImpl implements UserDetailsService {
 
 
     /** DI*/
-    private final AuthenticationRepository authenticationRepository;
+    private AuthenticationRepository authenticationRepository;
+    @Autowired
+    public LoginUserDetailsServiceImpl(AuthenticationRepository authenticationRepository) {
+        this.authenticationRepository = authenticationRepository;
+    }
 
 
 
