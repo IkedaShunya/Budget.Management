@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/insertcate.css}" rel="stylesheet" />
+  <script th:src="@{/js/cateinsert.js(version=2)}"></script>
+  <title>カテゴリー情報の編集</title>
+</head>
+<body>
+<h1>カテゴリー情報の編集</h1>
+<div class="bl_selectToggle_wrapper">
+  <select class="bl_selectToggle" id="js_selectToggle">
+    <option value="income">収入</option>
+    <option value="expense">支出</option>
+  </select>
+</div>
+<div class="bl_selectCont is_active" id="income">
+<form th:action="@{/category/insert/execute-incomeCategory}" th:object="${incomeCategory}" method="post">
+  <div>
+    <label for="isRegularIncome">定期収入：</label>
+    <select id="isRegularIncome" th:field="*{isRegularIncome}">
+      <option value="1" th:selected="*{isRegularIncome == 1}">定期</option>
+      <option value="0" th:selected="*{isRegularIncome == 0}">不定期</option>
+    </select>
+  </div>
+  <div>
+    <label for="incomecategoryName">カテゴリ名：</label>
+    <input type="text" id="incomecategoryName" th:field="*{categoryName}">
+  </div>
+  <div>
+    <label for="incomeestimatedAmount">予測収入金額：</label>
+    <input type="text" id="incomeestimatedAmount" th:field="*{estimatedAmount}">
+  </div>
+  <div>
+    <button type="submit"> 編集</button>
+  </div>
+</form>
+</div>
+<div class="bl_selectCont" id="expense">
+<form th:action="@{/category/insert/execute-expenseCategory}" th:object="${expenseCategory}" method="post">
+  <div>
+    <label for="isFixedCost">費用区分：</label>
+    <select id="isFixedCost" th:field="*{isFixedCost}">
+      <option value="1" th:selected="*{isFixedCost == 1}">固定費</option>
+      <option value="0" th:selected="*{isFixedCost == 0}">変動費</option>
+    </select>
+  </div>
+  <div>
+    <label for="expensecategoryName">カテゴリ名：</label>
+    <input type="text" id="expensecategoryName" th:field="*{categoryName}">
+  </div>
+  <div>
+    <label for="expenseestimatedAmount">予測収入金額：</label>
+    <input type="text" id="expenseestimatedAmount" th:field="*{estimatedAmount}">
+  </div>
+  <div>
+    <button type="submit"> 編集</button>
+  </div>
+</form>
+</div>
+<!-- 戻るボタン -->
+<p>
+  <a th:href="@{/category}" class="btn">メニューに戻る</a>
+</p>
+<p>
+  <a th:href="@{/category/list}" class="btn">リストへ</a>
+</p>
+<p>
+  <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+  <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+
+</body>
+</html>

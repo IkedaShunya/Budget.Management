@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+/* 背景全体のスタイル */
+body {
+    background-color: #fff6e4; /* 背景色 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ページタイトル */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 28px;
+}
+
+/* ユーザー情報表示 */
+div {
+    width: 400px;
+    margin: 10px auto;
+    font-size: 16px;
+    color: #555;
+}
+
+div span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* フォームスタイル */
+form {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ラベル */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 入力フィールド */
+form input[type="text"],
+form input[type="password"],
+form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+
+/* チェックボックス */
+form input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* チェックボックスラベル */
+form label[for="deleteFlag"] {
+    display: inline;
+    margin-left: 10px;
+}
+
+/* ボタン */
+form button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: rgb(255, 128, 64);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: red;
+}
+
+
+/* デフォルトは非表示 */
+.bl_selectCont {
+  display: none; /* 全て非表示にする */
+}
+
+/* is_active が付与された場合にのみ表示 */
+.bl_selectCont.is_active {
+  display: block;
+}

@@ -6,13 +6,13 @@
         SELECT category_id, user_id, category_name, estimated_amount, is_regular_income
         FROM income_category
         WHERE user_id = #{userId} AND delete_flag=0
-        ORDER BY is_regular_income ASC;
+        ORDER BY is_regular_income DESC;
     </select>
     <select id="selectexcategoryByuserId" resultType="com.example.Budget.Management.entity.ExpenseCategory">
         SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount
         FROM expense_category
         WHERE user_id = #{userId} AND delete_flag=0
-        ORDER BY is_fixed_cost ASC;
+        ORDER BY is_fixed_cost DESC;
     </select>
 
     <select id="selectexcategoryCategoryId" resultType="com.example.Budget.Management.entity.ExpenseCategory">
@@ -44,13 +44,13 @@
         WHERE category_id=#{categoryId}
     </update>
 
-    <insert id="insertUserinf" parameterType="com.example.Budget.Management.entity.IncomeCategory">
+    <insert id="insertIncomeCategory" parameterType="com.example.Budget.Management.entity.IncomeCategory">
     INSERT INTO income_category
     (user_id, category_name, estimated_amount, is_regular_income)
     VALUES
     (#{userId},#{categoryName}, #{estimatedAmount}, #{isRegularIncome});
     </insert>
-    <insert id="insertUserinf" parameterType="com.example.Budget.Management.entity.ExpenseCategory">
+    <insert id="insertExpenseCategory" parameterType="com.example.Budget.Management.entity.ExpenseCategory">
     INSERT INTO expense_category
     (user_id, category_name, is_fixed_cost, estimated_amount)
     VALUES

@@ -1,4 +1,4 @@
-package com.example.Budget.Management.Controller;
+package com.example.Budget.Management.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

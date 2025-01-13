@@ -1,7 +1,7 @@
-package com.example.Budget.Management.Controller;
+package com.example.Budget.Management.controller;
 
 
-import com.example.Budget.Management.Service.CategoryService;
+import com.example.Budget.Management.service.CategoryService;
 import com.example.Budget.Management.domain.Category;
 import com.example.Budget.Management.entity.ExpenseCategory;
 import com.example.Budget.Management.entity.IncomeCategory;
@@ -25,6 +25,14 @@ public class CategoryController {
     public CategoryController(CategoryService service,SessioninfGet sessioninf) {
         this.service = service;
         this.sessioninf = sessioninf;
+    }
+    @ModelAttribute
+    public IncomeCategory setUpIncomeCategoryForm() {
+        return new IncomeCategory();
+    }
+    @ModelAttribute
+    public ExpenseCategory setUpExpenseCategoryForm() {
+        return new ExpenseCategory();
     }
 
     /**
@@ -108,6 +116,43 @@ public class CategoryController {
         return "redirect:/category/list";
         //IDチェック
     }
+
+    /**
+     * カテゴリの追加
+     */
+
+    /**
+     * メニュー画面
+     */
+    @GetMapping("/insert")
+    public String insertCategory(){
+        return "category/insertcate";
+    }
+
+
+
+    @PostMapping("/insert/execute-incomeCategory")
+    public String insertIncomecategory(@ModelAttribute IncomeCategory incomeCategory
+            , BindingResult result, Model model, RedirectAttributes redirectAttributes){
+
+        incomeCategory.setUserId(sessioninf.getLoginUserId());
+        service.insertIncomeCategory(incomeCategory);
+        redirectAttributes.addFlashAttribute("message", "収入カテゴリー追加が完了しました");
+        //mapping(java側にリダイレクトしている)
+        return "redirect:/category/list";
+    }
+
+    @PostMapping("/insert/execute-expenseCategory")
+    public String insertexpenseCategory(@ModelAttribute ExpenseCategory expensecategory
+            , BindingResult result, Model model, RedirectAttributes redirectAttributes){
+
+        expensecategory.setUserId(sessioninf.getLoginUserId());
+        service.insertExpenseCategory(expensecategory);
+        redirectAttributes.addFlashAttribute("message", "支出カテゴリー追加が完了しました");
+        //mapping(java側にリダイレクトしている)
+        return "redirect:/category/list";
+    }
+
 
 
 

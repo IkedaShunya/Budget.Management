@@ -1,4 +1,4 @@
-package com.example.Budget.Management.Service;
+package com.example.Budget.Management.service;
 
 import com.example.Budget.Management.domain.Category;
 import com.example.Budget.Management.entity.ExpenseCategory;
@@ -89,8 +89,18 @@ public class CategoryService {
         repository.deleteExpenseCategory(categoryId);
     }
 
-
-
+    /**
+     * 収入カテゴリの削除
+     */
+    public void insertIncomeCategory(IncomeCategory incomeCategory){
+        repository.insertIncomeCategory(incomeCategory);
+    }
+    /**
+     * 支出カテゴリの削除
+     */
+    public void insertExpenseCategory(ExpenseCategory expensecategory){
+        repository.insertExpenseCategory(expensecategory);
+    }
 
 
 

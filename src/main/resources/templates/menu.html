@@ -31,6 +31,8 @@
 </div>
 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usermanage/userlist}">利用者一覧</a>
 <br>
+<a th:href="@{/category}">カテゴリーメニュー画面</a>
+<br>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="ログアウト">
