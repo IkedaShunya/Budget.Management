@@ -9,6 +9,7 @@
 <body>
 <h1>カテゴリー情報の編集</h1>
 <div class="bl_selectToggle_wrapper">
+  <label for="js_selectToggle">支出・収入の選択：</label>
   <select class="bl_selectToggle" id="js_selectToggle">
     <option value="income">収入</option>
     <option value="expense">支出</option>
@@ -19,8 +20,8 @@
   <div>
     <label for="isRegularIncome">定期収入：</label>
     <select id="isRegularIncome" th:field="*{isRegularIncome}">
-      <option value="1" th:selected="*{isRegularIncome == 1}">定期</option>
-      <option value="0" th:selected="*{isRegularIncome == 0}">不定期</option>
+      <option value="1" selected>定期</option>
+      <option value="0" >不定期</option>
     </select>
   </div>
   <div>
@@ -41,8 +42,8 @@
   <div>
     <label for="isFixedCost">費用区分：</label>
     <select id="isFixedCost" th:field="*{isFixedCost}">
-      <option value="1" th:selected="*{isFixedCost == 1}">固定費</option>
-      <option value="0" th:selected="*{isFixedCost == 0}">変動費</option>
+      <option value="1" selected>固定費</option>
+      <option value="0" >変動費</option>
     </select>
   </div>
   <div>

@@ -102,3 +102,47 @@ form button:hover {
 .bl_selectCont.is_active {
   display: block;
 }
+
+/* ベーススタイル */
+.bl_selectToggle {
+  appearance: none; /* 標準のドロップダウン矢印を非表示に */
+  -webkit-appearance: none; /* Safari用 */
+  -moz-appearance: none; /* Firefox用 */
+  background-color: #f4f4f4; /* 背景色 */
+  color: #333; /* テキスト色 */
+  border: 1px solid #ccc; /* ボーダー */
+  border-radius: 5px; /* 丸み */
+  padding: 10px 40px 10px 15px; /* 内側余白 */
+  font-size: 16px; /* フォントサイズ */
+  cursor: pointer; /* ポインタに変更 */
+  outline: none; /* フォーカスリングを非表示 */
+  transition: all 0.3s ease; /* アニメーション効果 */
+  position: relative; /* 相対位置 */
+  width: 250px; /* 幅調整 */
+}
+
+/* ドロップダウンをクリック時に背景色を変更 */
+.bl_selectToggle:hover {
+  background-color: #e8f0fe; /* 背景色 */
+  border-color: #007bff; /* ボーダー色 */
+}
+
+/* 矢印のスタイルを追加 */
+.bl_selectToggle::after {
+  content: "▼"; /* 矢印を追加 */
+  font-size: 12px; /* 矢印サイズ */
+  color: #333; /* 矢印色 */
+  position: absolute;
+  right: 15px; /* 右側の余白 */
+  top: 50%;
+  transform: translateY(-50%); /* 中央寄せ */
+  pointer-events: none; /* クリックできないようにする */
+}
+
+/* モバイル端末対応 */
+@media (max-width: 768px) {
+  .bl_selectToggle {
+    width: 100%; /* 横幅を100%に */
+    font-size: 14px; /* フォントを少し小さく */
+  }
+}
