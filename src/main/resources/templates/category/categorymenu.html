@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/usermanagement.css}" rel="stylesheet" />
+    <title>ユーザー管理</title>
+</head>
+<body>
+<h2>ユーザー管理メニュー</h2>
+<hr>
+<a th:href="@{/category/list}">カテゴリー一覧・編集</a>
+<br>
+<a th:href="@{/category/insert}">カテゴリー追加</a>
+<p>
+    <a href="#" class="btn-logout" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+</p>
+<form id="logout-form" th:action="@{/logout}" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+
+</body>
+</html>

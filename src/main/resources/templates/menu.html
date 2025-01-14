@@ -19,13 +19,19 @@
     ログイン情報のname値に書き換わる
 </div>
 <br>
-
+<a th:href="@{/category}">カテゴリーメニュー画面</a>
+<br>
 <!--authenticationはspringsecurityの認証情報にアクセスするためのオブジェクト-->
 <!--principalは認証プロセスで確認されたユーザの情報を保持する-->
 <div th:text="${#authentication.principal.displayName}">
     新たに追加したdisplayName値に書き換わる
 </div>
+<div th:text="${#authentication.principal.userId}">
+    新たに追加したdisplayName値に書き換わる
+</div>
 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usermanage/userlist}">利用者一覧</a>
+<br>
+<a th:href="@{/category}">カテゴリーメニュー画面</a>
 <br>
 
 <form th:action="@{/logout}" method="post">

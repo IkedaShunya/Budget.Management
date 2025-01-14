@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/categorylist.css}" rel="stylesheet" />
+    <title>カテゴリー一覧</title>
+</head>
+<body>
+<h1>カテゴリー一覧</h1>
+<div th:if="${message}" style="text-align: left; color: red; font-weight: bold;">
+    <ul>
+        <li th:text="${message}"></li>
+    </ul>
+</div>
+<h2>収入</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>形態</th>
+        <th>カテゴリ名</th>
+        <th>予想収入金額 (円)</th>
+        <th>削除</th>
+        <th>編集</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each ="incomeCategory : ${incomeCategories}">
+        <td th:text="${incomeCategory.isRegularIncome == 1 ? '定期' : (incomeCategory.isRegularIncome == 0 ? '不定期' : null)}">定期</td>
+        <td th:text="${incomeCategory.categoryName}">給与</td>
+        <td th:text="${incomeCategory.estimatedAmount + '円'}">1000円</td>
+        <td><a th:href="@{/category/delete-incomeCategory(id=${incomeCategory.categoryId})}">削除</a></td>
+        <td><a th:href="@{/category/edit-incomeCategory(id=${incomeCategory.categoryId})}">編集</a></td>
+    </tr>
+    </tbody>
+</table>
+<h2>支出</h2>
+<table border="1">
+<thead>
+<tr>
+    <th>費用区分</th>
+    <th>カテゴリ名</th>
+    <th>予想支出金額 (円)</th>
+    <th>削除</th>
+    <th>編集</th>
+ </tr>
+</thead>
+    <tbody>
+    <tr th:each ="expenseCategory : ${expenseCategories}">
+        <td th:text="${expenseCategory.isFixedCost == 1 ? '固定費' : (expenseCategory.isFixedCost == 0 ? '変動費' : null)}">固定費</td>
+        <td th:text="${expenseCategory.categoryName}">家賃</td>
+        <td th:text="${expenseCategory.estimatedAmount + '円'}">1000円</td>
+        <td><a th:href="@{/category/delete-expenseCategory(id=${expenseCategory.categoryId})}">削除</a></td>
+        <td><a th:href="@{/category/edit-expenseCategory(id=${expenseCategory.categoryId})}">編集</a></td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <a th:href="@{/category}" class="btn">メニューに戻る</a>
+</p>
+<p>
+    <a th:href="@{/category/insert}" class="btn">カテゴリ追加</a>
+</p>
+<p>
+    <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+</p>
+</body>
+</html>

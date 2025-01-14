@@ -4,6 +4,8 @@ package com.example.Budget.Management.controller;
 import com.example.Budget.Management.entity.User;
 import com.example.Budget.Management.service.UserMangementService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -95,6 +97,7 @@ public class UserMangementController {
         if(user.getDeleteFlag() == null){
             user.setDeleteFlag(0);
         }
+
         model.addAttribute("userInf", user); // 確認画面用のデータを渡す
         return "usermanage/confirm";
     }
@@ -103,6 +106,7 @@ public class UserMangementController {
     @PostMapping("/edit/execute")
     public String updateUser(@ModelAttribute User user
             , BindingResult result,Model model,  RedirectAttributes redirectAttributes){
+
         service.updateUserinf(user);
         redirectAttributes.addFlashAttribute("message", "編集が完了しました");
         //mapping(java側にリダイレクトしている)
@@ -124,7 +128,15 @@ public class UserMangementController {
      * 登録画面で入力した値で確認画面を表示
      */
     @PostMapping("/register/confirm")
-    public String confirmRegister(@ModelAttribute("user") User user, Model model) {
+    public String confirmRegister(@ModelAttribute("user") User user,
+                                  Model model) {
+        try{
+            service.insertcheck(user);
+        }catch (DataIntegrityViolationException ex) {
+            // マルチキャッチ構文で例外を処理
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "usermanage/register"; // エラーメッセージを登録画面に表示
+        }
         model.addAttribute("user", user); // 確認画面用のデータを渡す
         return "usermanage/registerconfirm";
     }
@@ -135,10 +147,13 @@ public class UserMangementController {
     @PostMapping("/register/execute")
     public String registerUser(@ModelAttribute User user
             , BindingResult result,Model model,  RedirectAttributes redirectAttributes){
-        service.insertUsrinf(user);
-        redirectAttributes.addFlashAttribute("message", "登録が完了しました");
-        //mapping(java側にリダイレクトしている)
-        return "redirect:/usermanage/userlist";
+
+            service.insertUsrinf(user);
+            redirectAttributes.addFlashAttribute("message", "登録が完了しました");
+            //mapping(java側にリダイレクトしている)
+            return "redirect:/usermanage/userlist";
+
+
     }
 
 

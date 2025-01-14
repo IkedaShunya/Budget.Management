@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/editUser.css}" rel="stylesheet" />
+  <title>カテゴリー情報の編集</title>
+</head>
+<body>
+<h1>カテゴリー情報の編集</h1>
+<form th:action="@{/category/edit/execute-incomeCategory}" th:object="${incomeCategory}" method="post">
+  <div>
+    <label for="categoryId"></label>
+    <input type="hidden" id="categoryId" th:field="*{categoryId}">
+  </div>
+  <div>
+    <label for="isRegularIncome">定期収入：</label>
+    <select id="isRegularIncome" th:field="*{isRegularIncome}">
+      <option value="1" th:selected="*{isRegularIncome == 1}">定期</option>
+      <option value="0" th:selected="*{isRegularIncome == 0}">不定期</option>
+    </select>
+  </div>
+  <div>
+    <label for="categoryName">カテゴリ名：</label>
+    <input type="text" id="categoryName" th:field="*{categoryName}">
+  </div>
+  <div>
+    <label for="estimatedAmount">予測収入金額：</label>
+    <input type="text" id="estimatedAmount" th:field="*{estimatedAmount}">
+  </div>
+  <div>
+    <button type="submit"> 編集</button>
+  </div>
+</form>
+<!-- 戻るボタン -->
+<a th:href="@{/category/list}" class="cancel-btn">キャンセル</a>
+</body>
+</html>

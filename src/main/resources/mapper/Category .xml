@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--どのマッパーに紐づくか定義する-->
+<mapper namespace="com.example.Budget.Management.repository.CategoryRepository">
+    <select id="selectincategoryByuserId" resultType="com.example.Budget.Management.entity.IncomeCategory">
+        SELECT category_id, user_id, category_name, estimated_amount, is_regular_income
+        FROM income_category
+        WHERE user_id = #{userId} AND delete_flag=0
+        ORDER BY is_regular_income DESC;
+    </select>
+    <select id="selectexcategoryByuserId" resultType="com.example.Budget.Management.entity.ExpenseCategory">
+        SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount
+        FROM expense_category
+        WHERE user_id = #{userId} AND delete_flag=0
+        ORDER BY is_fixed_cost DESC;
+    </select>
+
+    <select id="selectexcategoryCategoryId" resultType="com.example.Budget.Management.entity.ExpenseCategory">
+        SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount
+        FROM expense_category
+        WHERE category_id = #{categoryId} AND delete_flag=0;
+    </select>
+    <update id="updateExpensecategoryinf" parameterType="com.example.Budget.Management.entity.ExpenseCategory">
+        UPDATE expense_category SET category_name=#{categoryName}, is_fixed_cost=#{isFixedCost}, estimated_amount=#{estimatedAmount}
+        WHERE category_id=#{categoryId}
+    </update>
+
+    <select id="selectincategoryCategoryId" resultType="com.example.Budget.Management.entity.IncomeCategory">
+        SELECT category_id, user_id, category_name, is_regular_income,estimated_amount
+        FROM income_category
+        WHERE category_id = #{categoryId} AND delete_flag=0;
+    </select>
+    <update id="updateIncomecategoryinf" parameterType="com.example.Budget.Management.entity.IncomeCategory">
+        UPDATE income_category SET category_name=#{categoryName}, is_regular_income=#{isRegularIncome}, estimated_amount=#{estimatedAmount}
+        WHERE category_id=#{categoryId}
+    </update>
+
+    <update id="deleteIncomeCategory">
+        UPDATE income_category SET delete_flag=1
+        WHERE category_id=#{categoryId}
+    </update>
+    <update id="deleteExpenseCategory">
+        UPDATE expense_category SET delete_flag=1
+        WHERE category_id=#{categoryId}
+    </update>
+
+    <insert id="insertIncomeCategory" parameterType="com.example.Budget.Management.entity.IncomeCategory">
+    INSERT INTO income_category
+    (user_id, category_name, estimated_amount, is_regular_income)
+    VALUES
+    (#{userId},#{categoryName}, #{estimatedAmount}, #{isRegularIncome});
+    </insert>
+    <insert id="insertExpenseCategory" parameterType="com.example.Budget.Management.entity.ExpenseCategory">
+    INSERT INTO expense_category
+    (user_id, category_name, is_fixed_cost, estimated_amount)
+    VALUES
+    (#{userId},#{categoryName}, #{isFixedCost}, #{estimatedAmount});
+    </insert>
+
+</mapper>

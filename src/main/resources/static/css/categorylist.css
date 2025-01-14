@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+/* 背景全体のスタイル */
+body {
+    background-color: #fff6e4; /* 柔らかな背景色 */
+    font-family: Arial, sans-serif; /* 見やすいフォント */
+    margin: 0;
+    padding: 0;
+    color: #333; /* テキストの基本色 */
+}
+
+/* ページタイトル */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* 見出し */
+h2 {
+    margin-top: 30px;
+    text-align: center;
+    color: #555;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* テーブル全体のスタイル */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden; /* 角を丸める */
+}
+/* 列幅の調整 */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 20%; /* 形態（収入）と種別（支出） */
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 30%; /* カテゴリ名（収入）とカテゴリ名（支出） */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 30%; /* 予想収入金額（収入）と予想支出金額（支出） */
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 10%; /* 削除 */
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    width: 10%; /* 編集 */
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 12px;
+    height: 50px;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+td:hover {
+    background-color: #ffe0cc; /* ホバー時の背景色 */
+    transition: background-color 0.3s;
+}
+
+/* テーブル行の交互スタイル */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ボタンのスタイル */
+.btn :not(.delete-btn) {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px 0;
+    color: #fff;
+    background-color: rgb(255, 128, 64);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+
+/* テーブル下部に戻るリンクのスタイル */
+.return-link {
+    text-align: center;
+    margin: 20px;
+}
+
+.return-link a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: rgb(255, 128, 64);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.return-link a:hover {
+    background-color: red;
+}
+
+/* ログアウトフォームボタン */
+#logout-form input[type="submit"] {
+    width: 200px;
+    margin: 20px auto;
+    background-color: rgb(255, 128, 64);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+#logout-form input[type="submit"]:hover {
+    background-color: red;
+}
+
+/* メッセージ表示エリア */
+div[th\\:if="${message}"] {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    margin: 10px;
+}
+
+/* 全体の間隔調整 */
+p {
+    margin: 15px auto;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* テーブルタイトルの下にスペースを追加 */
+table + h2 {
+    margin-top: 40px;
+}
