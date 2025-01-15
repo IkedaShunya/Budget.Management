@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--どのマッパーに紐づくか定義する-->
+<mapper namespace="com.example.Budget.Management.repository.BudgetRepository">
+    <select id="selectIncomeAmount" resultType="Integer">
+        SELECT budget_amount
+        FROM income_budget
+        WHERE category_id = #{categoryId} AND year = #{selectedYear}　AND month = #{selectedMonth};
+    </select>
+    <select id="selectExpenseAmount" resultType="Integer">
+        SELECT budget_amount
+        FROM expense_budget
+        WHERE category_id = #{categoryId} AND year = #{selectedYear}　AND month = #{selectedMonth};
+    </select>
+
+</mapper>
