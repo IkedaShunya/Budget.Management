@@ -1,167 +1,131 @@
-@charset "UTF-8";
+/* categorylist.css */
 
-/* 背景全体のスタイル */
+/* 全体のスタイル */
 body {
-    background-color: #fff6e4; /* 柔らかな背景色 */
-    font-family: Arial, sans-serif; /* 見やすいフォント */
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
     margin: 0;
-    padding: 0;
-    color: #333; /* テキストの基本色 */
+    padding: 1.5em;
+    line-height: 1.6;
 }
 
-/* ページタイトル */
+/* ヘッダー */
 h1 {
     text-align: center;
+    color: #444;
     margin-top: 20px;
-    color: #333;
-    font-size: 32px;
-    font-weight: bold;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-/* 見出し */
 h2 {
-    margin-top: 30px;
+    color: #666;
+    margin: 20px auto;
     text-align: center;
-    color: #555;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.8em;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    display: inline-block;
 }
 
-/* テーブル全体のスタイル */
+/* メッセージ */
+div[th\\:if] {
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #f00;
+    border-radius: 5px;
+    background-color: #ffe6e6;
+    max-width: 80%;
+}
+
+/* テーブルスタイル */
 table {
     width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    overflow: hidden; /* 角を丸める */
-}
-/* 列幅の調整 */
-th:nth-child(1),
-td:nth-child(1) {
-    width: 20%; /* 形態（収入）と種別（支出） */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
-th:nth-child(2),
-td:nth-child(2) {
-    width: 30%; /* カテゴリ名（収入）とカテゴリ名（支出） */
+table thead {
+    background-color: #f7f7f7;
 }
 
-th:nth-child(3),
-td:nth-child(3) {
-    width: 30%; /* 予想収入金額（収入）と予想支出金額（支出） */
-}
-
-th:nth-child(4),
-td:nth-child(4) {
-    width: 10%; /* 削除 */
-}
-
-th:nth-child(5),
-td:nth-child(5) {
-    width: 10%; /* 編集 */
-}
-
-th,
-td {
+table th, table td {
     border: 1px solid #ddd;
+    padding: 10px 15px;
     text-align: center;
-    padding: 12px;
-    height: 50px;
+    font-size: 1em;
 }
 
-th {
-    background-color: #f4f4f4;
-    color: #333;
+table th {
+    background-color: #f0f0f0;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 14px;
+    color: #555;
 }
 
-td:hover {
-    background-color: #ffe0cc; /* ホバー時の背景色 */
-    transition: background-color 0.3s;
-}
-
-/* テーブル行の交互スタイル */
-tbody tr:nth-child(even) {
+table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* ボタンのスタイル */
-.btn :not(.delete-btn) {
+table tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+/* ボタンスタイル */
+a.btn {
     display: inline-block;
-    padding: 10px 15px;
-    margin: 5px 0;
-    color: #fff;
-    background-color: rgb(255, 128, 64);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
+    margin: 10px auto;
+    padding: 10px 20px;
     text-align: center;
+    text-decoration: none;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 1em;
     font-weight: bold;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
 }
 
-
-/* テーブル下部に戻るリンクのスタイル */
-.return-link {
-    text-align: center;
-    margin: 20px;
+a.btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 3px 6px rgba(0, 86, 179, 0.3);
 }
 
-.return-link a {
+/* フォームスタイル */
+form {
     display: inline-block;
-    padding: 10px 15px;
-    background-color: rgb(255, 128, 64);
-    color: #fff;
+}
+
+/* リンクの装飾 */
+a {
+    color: #007BFF;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
 }
 
-.return-link a:hover {
-    background-color: red;
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
 }
 
-/* ログアウトフォームボタン */
-#logout-form input[type="submit"] {
-    width: 200px;
-    margin: 20px auto;
-    background-color: rgb(255, 128, 64);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s;
-}
-
-#logout-form input[type="submit"]:hover {
-    background-color: red;
-}
-
-/* メッセージ表示エリア */
-div[th\\:if="${message}"] {
-    text-align: center;
-    color: red;
-    font-weight: bold;
-    margin: 10px;
-}
-
-/* 全体の間隔調整 */
-p {
-    margin: 15px auto;
-    text-align: center;
-    font-size: 14px;
-}
-
-/* テーブルタイトルの下にスペースを追加 */
-table + h2 {
-    margin-top: 40px;
+/* スマホ対応のレスポンシブデザイン */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9em;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    a.btn {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
 }

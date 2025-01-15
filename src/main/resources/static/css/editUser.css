@@ -1,93 +1,86 @@
 @charset "UTF-8";
 
-/* 背景全体のスタイル */
+/* 全体の背景設定 */
 body {
-    background-color: #fff6e4; /* 背景色 */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  line-height: 1.6;
 }
 
-/* ページタイトル */
+/* 見出しのスタイル */
 h1 {
-    text-align: center;
-    margin-top: 20px;
-    color: #333;
-    font-size: 28px;
+  text-align: center;
+  color: #007bff;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
-/* ユーザー情報表示 */
-div {
-    width: 400px;
-    margin: 10px auto;
-    font-size: 16px;
-    color: #555;
-}
-
-div span {
-    font-weight: bold;
-    color: #333;
-}
-
-/* フォームスタイル */
+/* フォーム全体 */
 form {
-    width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
 }
 
-/* ラベル */
+/* 各入力フィールドのラベル */
 form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-/* 入力フィールド */
+/* テキストボックスとセレクトボックス */
 form input[type="text"],
-form input[type="password"],
 form select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: #333;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-/* チェックボックス */
-form input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-/* チェックボックスラベル */
-form label[for="deleteFlag"] {
-    display: inline;
-    margin-left: 10px;
-}
-
-/* ボタン */
+/* ボタンのスタイル */
 form button {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    background-color: rgb(255, 128, 64);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    transition: background-color 0.3s;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: background-color 0.3s ease;
 }
 
+/* ボタンホバー時 */
 form button:hover {
-    background-color: red;
+  background-color: #0056b3;
+}
+
+/* 戻るボタン */
+a.cancel-btn {
+  display: block;
+  text-align: center;
+  background-color: #6c757d;
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px auto;
+  max-width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+/* 戻るボタンホバー時 */
+a.cancel-btn:hover {
+  background-color: #5a6268;
 }

@@ -11,10 +11,12 @@
 <a th:href="@{/category/list}">カテゴリー一覧・編集</a>
 <br>
 <a th:href="@{/category/insert}">カテゴリー追加</a>
+<br>
+<a th:href="@{/}">メニューへ戻る</a>
+<br>
 <p>
-    <a href="#" class="btn-logout" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
-</p>
-<form id="logout-form" th:action="@{/logout}" method="post">
+    <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 </form>
 

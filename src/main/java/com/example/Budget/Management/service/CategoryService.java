@@ -21,7 +21,6 @@ public class CategoryService {
 
     @Autowired
     public CategoryService(CategoryRepository repository) {
-
         this.repository = repository;
     }
 
