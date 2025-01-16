@@ -6,14 +6,22 @@
 <!--  <link th:href="@{/css/editUser.css}" rel="stylesheet" />-->
   <title>予算入力</title>
   <script>
-    // 金額の入力を制限し、フォーマットを適用
-    function restrictAndFormat(input) {
-        // 入力値から数値以外の文字を削除
-        let value = input.value.replace(/[^0-9]/g, '');
+    /// ページ読み込み時に実行
+window.onload = function() {
+    // 収入金額の初期値をフォーマット
+    document.querySelectorAll('input[id="inamount"]').forEach(function(input) {
+        if (input.value) {
+            input.value = new Intl.NumberFormat().format(input.value);
+        }
+    });
 
-        // コンマ区切りフォーマットを適用
-        input.value = new Intl.NumberFormat().format(value);
-    }
+    // 支出金額の初期値をフォーマット
+    document.querySelectorAll('input[id="examount"]').forEach(function(input) {
+        if (input.value) {
+            input.value = new Intl.NumberFormat().format(input.value);
+        }
+    });
+};
   </script>
 </head>
 <body>
@@ -23,57 +31,60 @@
   <table  border="1">
     <thead>
     <tr>
-      <th>形態</th>
+<!--      <th>形態</th>-->
       <th>項目名</th>
       <th>金額 (円)</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each ="incomeBudget, iterStat: *{incomeBudgets}">
-      <td>
-        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].categoryId}" th:value="${incomeBudget.categoryId}" />
-        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].userId}" th:value="${incomeBudget.userId}" />
-        <span th:text="${incomeBudget.isRegularIncome == 1 ? '定期' : (incomeBudget.isRegularIncome == 0 ? '不定期' : null)}"></span>
-      </td>
+    <tr th:each="incomeBudget, iterStat : *{incomeBudgets}">
+<!--      <td>-->
+        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].categoryId}" />
+        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].userId}" />
+        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].year}" />
+        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].month}" />
+<!--        <span th:text="${incomeBudget.isRegularIncome == 1 ? '定期' : (incomeBudget.isRegularIncome == 0 ? '不定期' : '')}"></span>-->
+<!--      </td>-->
       <td>
         <span th:text="${incomeBudget.categoryName}"></span>
       </td>
-      <td> <input type="number"
-                  id="inamount"
-                  th:field="*{incomeBudgets[__${iterStat.index}__].budgetAmount}"
-                  th:value="${incomeBudget.estimatedAmount}"
-                  oninput="restrictAndFormat(this)"
-                  placeholder="金額を入力してください"
-                  autocomplete="off" />
+      <td>
+        <input type="text"
+               id="inamount"
+               th:field="*{incomeBudgets[__${iterStat.index}__].budgetAmount}"
+               placeholder="金額を入力してください"
+               autocomplete="off" />
       </td>
     </tr>
     </tbody>
+
   </table>
 
   <h2>支出</h2>
   <table  border="1">
     <thead>
     <tr>
-      <th>費用区分</th>
+<!--      <th>費用区分</th>-->
       <th>カテゴリ名</th>
       <th>金額 (円)</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each ="expenseBudget, iterStat: ${expenseBudgetList}">
+    <tr th:each ="expenseBudget, iterStat: *{expenseBudgets}">
+<!--      <td>-->
+<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].categoryId}"/>-->
+<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].userId}"/>-->
+<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].year}"/>-->
+<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].month}"/>-->
+<!--        <span th:text="*{expenseBudgets[__${iterStat.index}__].isFixedCost == 1 ? '固定費' : (expenseBudgets[__${iterStat.index}__].isFixedCost == 0 ? '変動費' : null)}"></span>-->
+<!--      </td>-->
       <td>
-        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].categoryId}" th:value="${expenseBudget.categoryId}" />
-        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].userId}" th:value="${expenseBudget.userId}" />
-        <span th:text="${expenseBudget.isFixedCost == 1 ? '固定費' : (expenseBudget.isFixedCost == 0 ? '変動費' : null)}"></span>
-      </td>
-      <td>
-        <span th:text="${expenseBudget.categoryName}"></span>
+        <span th:text="*{expenseBudgets[__${iterStat.index}__].categoryName}"></span>
       </td>
       <td>
         <input type="text"
                   id="examount"
                   th:field="*{expenseBudgets[__${iterStat.index}__].budgetAmount}"
-                  th:value="${expenseBudget.estimatedAmount}"
                   oninput="restrictAndFormat(this)"
                   placeholder="金額を入力してください"
                   autocomplete="off"

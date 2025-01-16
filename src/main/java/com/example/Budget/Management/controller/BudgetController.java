@@ -12,14 +12,15 @@ import com.example.Budget.Management.utility.SessioninfGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import java.beans.PropertyEditorSupport;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/budget")
@@ -60,9 +61,9 @@ public class BudgetController {
 
         //LIst＜IncomeBudget＞を作る
         List<IncomeBudget> incomeBudgetList = new ArrayList<>();
-        IncomeBudget incomeBudget = new IncomeBudget();
+
         List<ExpenseBudget> expenseBudgetList = new ArrayList<>();
-        ExpenseBudget expenseBudget = new ExpenseBudget();
+
 
         //categoryテーブルからまずカテゴリ出す
         Category categories = cateservice.searchCategory(sessioninf.getLoginUserId());
@@ -71,7 +72,7 @@ public class BudgetController {
 
         // →budgetテーブルからcategoryIDと年月で検索してNullではない場合にcategoryテーブルの金額を入れる
         for(IncomeCategory incomeCategory :incomeCategories){
-
+            IncomeBudget incomeBudget = new IncomeBudget();
             incomeBudget.setUserId(incomeCategory.getUserId());
             incomeBudget.setCategoryId(incomeCategory.getCategoryId());
             incomeBudget.setCategoryName(incomeCategory.getCategoryName());
@@ -82,9 +83,11 @@ public class BudgetController {
             //categoryIDと年月で検索して金額を出す
             Integer incomeExistAmount = service.searchIncomeAmount(incomeCategory.getCategoryId(),selectedYear,selectedMonth);
             if(incomeExistAmount != null){
+//                incomeBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(incomeExistAmount));
                 incomeBudget.setBudgetAmount(incomeExistAmount);
 
             }else{
+//                incomeBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(incomeCategory.getBudgetAmount()));
                 incomeBudget.setBudgetAmount(incomeCategory.getEstimatedAmount());
             }
 
@@ -93,7 +96,7 @@ public class BudgetController {
         }
 
         for(ExpenseCategory expenseCategory :expenseCategories){
-
+            ExpenseBudget expenseBudget = new ExpenseBudget();
             expenseBudget.setUserId(expenseCategory.getUserId());
             expenseBudget.setCategoryId(expenseCategory.getCategoryId());
             expenseBudget.setCategoryName(expenseCategory.getCategoryName());
@@ -106,9 +109,11 @@ public class BudgetController {
             Integer expenseExistAmount = service.searchExpenseAmount(expenseCategory.getCategoryId(),selectedYear,selectedMonth);
 
             if(expenseExistAmount != null){
+//                expenseBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(expenseExistAmount));
                 expenseBudget.setBudgetAmount(expenseExistAmount);
 
             }else{
+//                expenseBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(expenseCategory.getEstimatedAmount()));
                 expenseBudget.setBudgetAmount(expenseCategory.getEstimatedAmount());
             }
             expenseBudgetList.add(expenseBudget);
@@ -125,6 +130,33 @@ public class BudgetController {
 
         return "budget/register";
 
+    }
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Integer.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                if (text == null || text.isEmpty()) {
+                    setValue(null);
+                } else {
+                    // カンマを削除してIntegerに変換
+                    setValue(Integer.parseInt(text.replace(",", "")));
+                }
+            }
+
+            @Override
+            public String getAsText() {
+                Object value = getValue();
+                if (value == null) {
+                    return "";
+                } else {
+                    // カンマ区切りでフォーマット
+                    return String.format("%,d", (Integer) value);
+                }
+            }
+        });
     }
 
 }
