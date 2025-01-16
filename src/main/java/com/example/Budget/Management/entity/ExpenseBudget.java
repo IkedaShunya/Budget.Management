@@ -14,6 +14,12 @@ public class ExpenseBudget {
     private int budgetAmount;
     @NotNull
     private int period;
+    /** 固定費フラグ*/
+    private int isFixedCost;
+    /** カテゴリ名*/
+    private String categoryName;
+    private int year;
+    private int month;
 
 }
 

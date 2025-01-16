@@ -5,12 +5,12 @@
     <select id="selectIncomeAmount" resultType="Integer">
         SELECT budget_amount
         FROM income_budget
-        WHERE category_id = #{categoryId} AND year = #{selectedYear}　AND month = #{selectedMonth};
+        WHERE category_id = #{categoryId} AND year = #{selectedYear} AND month = #{selectedMonth};
     </select>
     <select id="selectExpenseAmount" resultType="Integer">
         SELECT budget_amount
         FROM expense_budget
-        WHERE category_id = #{categoryId} AND year = #{selectedYear}　AND month = #{selectedMonth};
+        WHERE category_id = #{categoryId} AND year = #{selectedYear} AND month = #{selectedMonth};
     </select>
 
 </mapper>

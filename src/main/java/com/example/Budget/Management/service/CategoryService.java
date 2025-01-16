@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Service
-public class CategoryService {
+public class CategoryService  {
     /** DI*/
     private CategoryRepository repository;
 

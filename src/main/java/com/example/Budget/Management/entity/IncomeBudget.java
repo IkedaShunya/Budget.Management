@@ -7,13 +7,16 @@ import lombok.Data;
 public class IncomeBudget {
     @NotNull
     private int budgetId;
-    @NotNull
     private int userId;
     @NotNull
     private int categoryId;
+    /** カテゴリ名*/
+    private String categoryName;
     private int budgetAmount;
-    @NotNull
-    private int period;
+    private int isRegularIncome;
+
+    private int year;
+    private int month;
 
 }
 
