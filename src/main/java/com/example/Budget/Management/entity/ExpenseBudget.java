@@ -21,6 +21,9 @@ public class ExpenseBudget {
     private int year;
     private int month;
 
+    /**0が存在しない　1が存在する*/
+    private int dbFlag;
+
 }
 
 

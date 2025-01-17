@@ -12,15 +12,20 @@ import com.example.Budget.Management.utility.SessioninfGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.beans.PropertyEditorSupport;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/budget")
@@ -61,7 +66,6 @@ public class BudgetController {
 
         //LIst＜IncomeBudget＞を作る
         List<IncomeBudget> incomeBudgetList = new ArrayList<>();
-
         List<ExpenseBudget> expenseBudgetList = new ArrayList<>();
 
 
@@ -85,10 +89,12 @@ public class BudgetController {
             if(incomeExistAmount != null){
 //                incomeBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(incomeExistAmount));
                 incomeBudget.setBudgetAmount(incomeExistAmount);
+                incomeBudget.setDbFlag(1);
 
             }else{
 //                incomeBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(incomeCategory.getBudgetAmount()));
                 incomeBudget.setBudgetAmount(incomeCategory.getEstimatedAmount());
+                incomeBudget.setDbFlag(0);
             }
 
             incomeBudgetList.add(incomeBudget);
@@ -111,13 +117,31 @@ public class BudgetController {
             if(expenseExistAmount != null){
 //                expenseBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(expenseExistAmount));
                 expenseBudget.setBudgetAmount(expenseExistAmount);
+                expenseBudget.setDbFlag(1);
 
             }else{
 //                expenseBudget.setFormattedBudgetAmount(NumberFormat.getNumberInstance(Locale.JAPAN).format(expenseCategory.getEstimatedAmount()));
                 expenseBudget.setBudgetAmount(expenseCategory.getEstimatedAmount());
+                expenseBudget.setDbFlag(0);
             }
             expenseBudgetList.add(expenseBudget);
         }
+
+        //もしcategoryテーブルには削除されているが、
+        //予算テーブルにあるカテゴリをIncomeBudgetsとExpenseBudgetsに追加する
+        List<Integer> incomecateIdList = incomeBudgetList.stream()
+                .map(IncomeBudget::getCategoryId)
+                .collect(Collectors.toList());
+
+        List<Integer> expensecateIdList = expenseBudgetList.stream()
+                .map(ExpenseBudget::getCategoryId)
+                .collect(Collectors.toList());
+
+        List<IncomeBudget> lackIncomeBudgetList =service.lackincomeBudgetList(incomecateIdList,selectedYear,selectedMonth,sessioninf.getLoginUserId());
+        List<ExpenseBudget> lackExpenseBudgetList =service.lackExpenseBudgetList(expensecateIdList,selectedYear,selectedMonth,sessioninf.getLoginUserId());
+
+        incomeBudgetList.addAll(lackIncomeBudgetList);
+        expenseBudgetList.addAll(lackExpenseBudgetList);
 
 
 //        model.addAttribute("incomeBudgetList", incomeBudgetList);
@@ -126,37 +150,41 @@ public class BudgetController {
         budgetList.setIncomeBudgets(incomeBudgetList);
         budgetList.setExpenseBudgets(expenseBudgetList);
 
+        // ドロップダウン用の年と月リスト生成
+        List<Integer> years = IntStream.rangeClosed(now.getYear() - 10, now.getYear()+1).boxed().toList();
+        List<Integer> months = IntStream.rangeClosed(1, 12).boxed().toList();
+
         model.addAttribute(budgetList);
+        model.addAttribute("years", years);
+        model.addAttribute("months", months);
+        model.addAttribute("selectedYear", selectedYear);
+        model.addAttribute("selectedMonth", selectedMonth);
 
         return "budget/register";
 
     }
 
+    @PostMapping("/insert/execute")
+    public String insert(@ModelAttribute BudgetList budgetList
+            , BindingResult result, Model model, RedirectAttributes redirectAttributes){
+        //budgetListからinputデータを出力
+        List<IncomeBudget> inputincomeBudgets = budgetList.getIncomeBudgets();
+        List<ExpenseBudget> inputexpenseBudgets = budgetList.getExpenseBudgets();
+        service.insertBudget(inputincomeBudgets ,inputexpenseBudgets);
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Integer.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException {
-                if (text == null || text.isEmpty()) {
-                    setValue(null);
-                } else {
-                    // カンマを削除してIntegerに変換
-                    setValue(Integer.parseInt(text.replace(",", "")));
-                }
-            }
+         return "budget/register";
+        }
 
-            @Override
-            public String getAsText() {
-                Object value = getValue();
-                if (value == null) {
-                    return "";
-                } else {
-                    // カンマ区切りでフォーマット
-                    return String.format("%,d", (Integer) value);
-                }
-            }
-        });
-    }
+//        service.updateExpenseCategoryinf(expensecategory);
+//        redirectAttributes.addFlashAttribute("message", "編集が完了しました");
+//        //mapping(java側にリダイレクトしている)
+//        return "redirect:/category/list";
+  //  }
+
+
+
+
+
+
 
 }

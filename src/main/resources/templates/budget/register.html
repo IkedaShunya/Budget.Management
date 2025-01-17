@@ -3,97 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--  <link th:href="@{/css/editUser.css}" rel="stylesheet" />-->
+  <link th:href="@{/css/inputBudget.css}" rel="stylesheet" />
   <title>予算入力</title>
   <script>
-    /// ページ読み込み時に実行
-window.onload = function() {
-    // 収入金額の初期値をフォーマット
-    document.querySelectorAll('input[id="inamount"]').forEach(function(input) {
-        if (input.value) {
-            input.value = new Intl.NumberFormat().format(input.value);
-        }
-    });
+      /// ページ読み込み時に実行
+      window.onload = function () {
+    // 初期値をフォーマットする関数
+    function formatInitialValues(selector) {
+        document.querySelectorAll(selector).forEach(function (input) {
+            if (input.value) {
+                input.value = new Intl.NumberFormat().format(input.value);
+            }
+        });
+    }
 
-    // 支出金額の初期値をフォーマット
-    document.querySelectorAll('input[id="examount"]').forEach(function(input) {
-        if (input.value) {
-            input.value = new Intl.NumberFormat().format(input.value);
-        }
+    // カンマを削除する関数
+    function removeCommas(selector) {
+        document.querySelectorAll(selector).forEach(function (input) {
+            input.value = input.value.replace(/,/g, '');
+        });
+    }
+
+    // ページ読み込み時に収入と支出の金額をフォーマット
+    formatInitialValues('input[id="inamount"]');
+    formatInitialValues('input[id="examount"]');
+
+    // フォーム送信時の処理
+    document.querySelector('form').addEventListener('submit', function () {
+        removeCommas('input[id="inamount"]'); // 収入金額のカンマを削除
+        removeCommas('input[id="examount"]'); // 支出金額のカンマを削除
     });
 };
+
+
   </script>
 </head>
 <body>
-<h1>予算入力</h1>
-<form th:action="@{/category/insert/execute}" th:object="${budgetList}" method="post">
-  <h2>収入</h2>
-  <table  border="1">
-    <thead>
-    <tr>
-<!--      <th>形態</th>-->
-      <th>項目名</th>
-      <th>金額 (円)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="incomeBudget, iterStat : *{incomeBudgets}">
-<!--      <td>-->
-        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].categoryId}" />
-        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].userId}" />
-        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].year}" />
-        <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].month}" />
-<!--        <span th:text="${incomeBudget.isRegularIncome == 1 ? '定期' : (incomeBudget.isRegularIncome == 0 ? '不定期' : '')}"></span>-->
-<!--      </td>-->
-      <td>
-        <span th:text="${incomeBudget.categoryName}"></span>
-      </td>
-      <td>
-        <input type="text"
-               id="inamount"
-               th:field="*{incomeBudgets[__${iterStat.index}__].budgetAmount}"
-               placeholder="金額を入力してください"
-               autocomplete="off" />
-      </td>
-    </tr>
-    </tbody>
+<form th:action="@{/budget/register}" method="get">
+    <div class="form-row">
+        <div class="select-group">
+            <label for="year">年:</label>
+            <select name="year" id="year" th:value="${selectedYear}">
+                <option th:each="year : ${years}" th:value="${year}" th:text="${year}" th:selected="${year} == ${selectedYear}"></option>
+            </select>
+        </div>
+        <div class="select-group">
+            <label for="month">  月:</label>
+            <select name="month" id="month">
+                <option th:each="month : ${months}" th:value="${month}" th:text="${month}" th:selected="${month} == ${selectedMonth}"></option>
+            </select>
+        </div>
+    </div>
+    <br>
+   <button type="submit">表示</button>
+</form>
+<h1 class="page-title">予算入力</h1>
+<form class="budget-form" th:action="@{/budget/insert/execute}" th:object="${budgetList}" method="post">
+    <h2 class="section-title">収入</h2>
+    <table class="budget-table income-table" border="1">
+        <thead>
+        <tr>
+            <th class="category-column">カテゴリ名</th>
+            <th class="amount-column">金額 (円)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="incomeBudget, iterStat : *{incomeBudgets}">
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].categoryId}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].userId}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].year}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].month}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].dbFlag}" />
+            <td class="category-column">
+                <span th:text="${incomeBudget.categoryName}"></span>
+            </td>
+            <td class="amount-column">
+                <input class="amount-input" type="text"
+                       id="inamount"
+                       th:field="*{incomeBudgets[__${iterStat.index}__].budgetAmount}"
+                       placeholder="金額を入力してください"
+                       autocomplete="off" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-  </table>
-
-  <h2>支出</h2>
-  <table  border="1">
-    <thead>
-    <tr>
-<!--      <th>費用区分</th>-->
-      <th>カテゴリ名</th>
-      <th>金額 (円)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each ="expenseBudget, iterStat: *{expenseBudgets}">
-<!--      <td>-->
-<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].categoryId}"/>-->
-<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].userId}"/>-->
-<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].year}"/>-->
-<!--        <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].month}"/>-->
-<!--        <span th:text="*{expenseBudgets[__${iterStat.index}__].isFixedCost == 1 ? '固定費' : (expenseBudgets[__${iterStat.index}__].isFixedCost == 0 ? '変動費' : null)}"></span>-->
-<!--      </td>-->
-      <td>
-        <span th:text="*{expenseBudgets[__${iterStat.index}__].categoryName}"></span>
-      </td>
-      <td>
-        <input type="text"
-                  id="examount"
-                  th:field="*{expenseBudgets[__${iterStat.index}__].budgetAmount}"
-                  oninput="restrictAndFormat(this)"
-                  placeholder="金額を入力してください"
-                  autocomplete="off"
-        />
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <button type="submit">送信</button>
+    <h2 class="section-title">支出</h2>
+    <table class="budget-table expense-table" border="1">
+        <thead>
+        <tr>
+            <th class="category-column">カテゴリ名</th>
+            <th class="amount-column">金額 (円)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="expenseBudget, iterStat : *{expenseBudgets}">
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].categoryId}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].userId}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].year}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].month}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].dbFlag}" />
+            <td class="category-column">
+                <span th:text="*{expenseBudgets[__${iterStat.index}__].categoryName}"></span>
+            </td>
+            <td class="amount-column">
+                <input class="amount-input" type="text"
+                       id="examount"
+                       th:field="*{expenseBudgets[__${iterStat.index}__].budgetAmount}"
+                       oninput="restrictAndFormat(this)"
+                       placeholder="金額を入力してください"
+                       autocomplete="off" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <button type="submit">送信</button>
 </form>
 <!-- 戻るボタン -->
 <a th:href="@{/category/list}" class="cancel-btn">キャンセル</a>
