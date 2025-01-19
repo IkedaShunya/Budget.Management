@@ -21,6 +21,9 @@
 <br>
 <a th:href="@{/category}">カテゴリーメニュー画面</a>
 <br>
+<a th:href="@{/budget/register}">予算入力</a>
+<br>
+
 <!--authenticationはspringsecurityの認証情報にアクセスするためのオブジェクト-->
 <!--principalは認証プロセスで確認されたユーザの情報を保持する-->
 <div th:text="${#authentication.principal.displayName}">

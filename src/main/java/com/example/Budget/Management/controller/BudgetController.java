@@ -171,8 +171,12 @@ public class BudgetController {
         List<IncomeBudget> inputincomeBudgets = budgetList.getIncomeBudgets();
         List<ExpenseBudget> inputexpenseBudgets = budgetList.getExpenseBudgets();
         service.insertBudget(inputincomeBudgets ,inputexpenseBudgets);
+        int year = inputincomeBudgets.get(0).getYear();
+        int month = inputincomeBudgets.get(0).getMonth();
 
-         return "budget/register";
+
+        redirectAttributes.addFlashAttribute("message", "編集が完了しました");
+        return "redirect:/budget/register?year=" + year + "&month=" + month;
         }
 
 //        service.updateExpenseCategoryinf(expensecategory);

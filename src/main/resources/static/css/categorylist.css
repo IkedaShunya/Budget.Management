@@ -113,6 +113,33 @@ a:hover {
     color: #0056b3;
 }
 
+/* 列ごとに比率を設定 */
+table th:nth-child(1), /* 形態 / 費用区分 */
+table td:nth-child(1) {
+    width: 15%; /* 形態の幅 */
+}
+
+table th:nth-child(2), /* カテゴリ名 */
+table td:nth-child(2) {
+    width: 25%; /* カテゴリ名の幅 */
+}
+
+table th:nth-child(3), /* 予想収入金額 (円) / 予想支出金額 (円) */
+table td:nth-child(3) {
+    width: 35%; /* 金額列の幅 */
+}
+
+table th:nth-child(4), /* 削除 */
+table td:nth-child(4) {
+    width: 12.5%; /* 削除列の幅 */
+}
+
+table th:nth-child(5), /* 編集 */
+table td:nth-child(5) {
+    width: 12.5%; /* 編集列の幅 */
+}
+
+
 /* スマホ対応のレスポンシブデザイン */
 @media (max-width: 768px) {
     table {

@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <link th:href="@{/css/editUser.css}" rel="stylesheet" />
+  <link th:href="@{/css/editCate.css}" rel="stylesheet" />
+  <script th:src="@{/js/inputmoney.js}"></script>
   <title>カテゴリー情報の編集</title>
 </head>
 <body>
@@ -25,7 +26,7 @@
   </div>
   <div>
     <label for="estimatedAmount">予測収入金額：</label>
-    <input type="text" id="estimatedAmount" th:field="*{estimatedAmount}">
+    <input type="text" id="estimatedAmount" th:field="*{estimatedAmount}" class="js-format-amount" >　円
   </div>
   <div>
     <button type="submit"> 編集</button>

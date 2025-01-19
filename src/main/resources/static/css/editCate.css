@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+/* 全体の背景設定 */
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 見出しのスタイル */
+h1 {
+  text-align: center;
+  color: #007bff;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/* フォーム全体 */
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* 各入力フィールドのラベル */
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* テキストボックスとセレクトボックス */
+form input[type="text"],
+form select {
+  width: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* ボタンのスタイル */
+form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+/* ボタンホバー時 */
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* 戻るボタン */
+a.cancel-btn {
+  display: block;
+  text-align: center;
+  background-color: #6c757d;
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px auto;
+  max-width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+/* 戻るボタンホバー時 */
+a.cancel-btn:hover {
+  background-color: #5a6268;
+}

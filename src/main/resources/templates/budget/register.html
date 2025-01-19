@@ -6,8 +6,8 @@
   <link th:href="@{/css/inputBudget.css}" rel="stylesheet" />
   <title>予算入力</title>
   <script>
-      /// ページ読み込み時に実行
-      window.onload = function () {
+      // ページ読み込み時の処理
+window.onload = function () {
     // 初期値をフォーマットする関数
     function formatInitialValues(selector) {
         document.querySelectorAll(selector).forEach(function (input) {
@@ -24,22 +24,41 @@
         });
     }
 
-    // ページ読み込み時に収入と支出の金額をフォーマット
-    formatInitialValues('input[id="inamount"]');
-    formatInitialValues('input[id="examount"]');
-
-    // フォーム送信時の処理
-    document.querySelector('form').addEventListener('submit', function () {
-        removeCommas('input[id="inamount"]'); // 収入金額のカンマを削除
-        removeCommas('input[id="examount"]'); // 支出金額のカンマを削除
+    // フォーム送信時にカンマを削除
+    document.querySelector('form.budget-form').addEventListener('submit', function () {
+        removeCommas('.amount-input');
     });
+
+    // 初期値をフォーマット
+    formatInitialValues('.amount-input');
 };
 
+// 入力時にリアルタイムでカンマを挿入する関数
+function restrictAndFormat(input) {
+    // 現在のカーソル位置を記録
+    const cursorPosition = input.selectionStart;
 
+    // 入力値から数値以外の文字を削除
+    let value = input.value.replace(/[^0-9]/g, '');
+
+    // フォーマットを適用
+    input.value = new Intl.NumberFormat().format(value);
+
+    // カーソル位置を調整
+    const diff = input.value.length - value.length;
+    input.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+}
   </script>
 </head>
 <body>
+<div th:if="${message}" style="text-align: left; color: red; font-weight: bold;">
+    <ul>
+        <li th:text="${message}"></li>
+    </ul>
+</div>
+<h1 class="page-title">予算入力</h1>
 <form th:action="@{/budget/register}" method="get">
+    <h2 class="section-title">年月選択</h2>
     <div class="form-row">
         <div class="select-group">
             <label for="year">年:</label>
@@ -53,11 +72,10 @@
                 <option th:each="month : ${months}" th:value="${month}" th:text="${month}" th:selected="${month} == ${selectedMonth}"></option>
             </select>
         </div>
+        <button type="submit">表示</button>
     </div>
-    <br>
-   <button type="submit">表示</button>
+
 </form>
-<h1 class="page-title">予算入力</h1>
 <form class="budget-form" th:action="@{/budget/insert/execute}" th:object="${budgetList}" method="post">
     <h2 class="section-title">収入</h2>
     <table class="budget-table income-table" border="1">
@@ -79,10 +97,10 @@
             </td>
             <td class="amount-column">
                 <input class="amount-input" type="text"
-                       id="inamount"
                        th:field="*{incomeBudgets[__${iterStat.index}__].budgetAmount}"
+                       oninput="restrictAndFormat(this)"
                        placeholder="金額を入力してください"
-                       autocomplete="off" />
+                       autocomplete="off" />円
             </td>
         </tr>
         </tbody>
@@ -108,11 +126,10 @@
             </td>
             <td class="amount-column">
                 <input class="amount-input" type="text"
-                       id="examount"
                        th:field="*{expenseBudgets[__${iterStat.index}__].budgetAmount}"
                        oninput="restrictAndFormat(this)"
                        placeholder="金額を入力してください"
-                       autocomplete="off" />
+                       autocomplete="off" />円
             </td>
         </tr>
         </tbody>
@@ -121,6 +138,6 @@
     <button type="submit">送信</button>
 </form>
 <!-- 戻るボタン -->
-<a th:href="@{/category/list}" class="cancel-btn">キャンセル</a>
+<a th:href="@{/}" class="cancel-btn">メニューに戻る</a>
 </body>
 </html>

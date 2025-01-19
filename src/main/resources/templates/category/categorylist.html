@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/categorylist.css}" rel="stylesheet" />
     <title>カテゴリー一覧</title>
+    <script>
+        // カンマ区切りにフォーマットする関数
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        // ページ読み込み時に金額をフォーマット
+        window.onload = function () {
+            document.querySelectorAll('.amount').forEach(function (element) {
+                let value = parseInt(element.textContent, 10);
+                element.textContent = formatNumber(value) + '円';
+            });
+        };
+    </script>
 </head>
 <body>
 <h1>カテゴリー一覧</h1>
@@ -27,7 +41,7 @@
     <tr th:each ="incomeCategory : ${incomeCategories}">
         <td th:text="${incomeCategory.isRegularIncome == 1 ? '定期' : (incomeCategory.isRegularIncome == 0 ? '不定期' : null)}">定期</td>
         <td th:text="${incomeCategory.categoryName}">給与</td>
-        <td th:text="${incomeCategory.estimatedAmount + '円'}">1000円</td>
+        <td class="amount" th:text="${incomeCategory.estimatedAmount}"></td>
         <td><a th:href="@{/category/delete-incomeCategory(id=${incomeCategory.categoryId})}">削除</a></td>
         <td><a th:href="@{/category/edit-incomeCategory(id=${incomeCategory.categoryId})}">編集</a></td>
     </tr>
@@ -48,7 +62,7 @@
     <tr th:each ="expenseCategory : ${expenseCategories}">
         <td th:text="${expenseCategory.isFixedCost == 1 ? '固定費' : (expenseCategory.isFixedCost == 0 ? '変動費' : null)}">固定費</td>
         <td th:text="${expenseCategory.categoryName}">家賃</td>
-        <td th:text="${expenseCategory.estimatedAmount + '円'}">1000円</td>
+        <td class="amount" th:text="${expenseCategory.estimatedAmount + '円'}">1000円</td>
         <td><a th:href="@{/category/delete-expenseCategory(id=${expenseCategory.categoryId})}">削除</a></td>
         <td><a th:href="@{/category/edit-expenseCategory(id=${expenseCategory.categoryId})}">編集</a></td>
     </tr>

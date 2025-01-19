@@ -7,6 +7,13 @@ body {
   color: #333;
   line-height: 1.6;
 }
+/* ページタイトル */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 28px;
+}
 
 html {
   height: 100%;
@@ -63,7 +70,7 @@ form {
 }
 
 .form-row label {
-  padding: 10px;
+  padding-left: 15px;
   font-weight: bold;
   color: #555;
   font-size: 1em;
@@ -92,6 +99,7 @@ button {
   color: #fff;
   border: none;
   padding: 10px 20px;
+  margin-left: 30px;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;

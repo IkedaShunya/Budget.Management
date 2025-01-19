@@ -30,7 +30,7 @@
   </div>
   <div>
     <label for="incomeestimatedAmount">予測収入金額：</label>
-    <input type="text" id="incomeestimatedAmount" th:field="*{estimatedAmount}">
+    <input type="text" id="incomeestimatedAmount" th:field="*{estimatedAmount}"  class="js-format-amount">
   </div>
   <div>
     <button type="submit"> 編集</button>
@@ -52,10 +52,10 @@
   </div>
   <div>
     <label for="expenseestimatedAmount">予測収入金額：</label>
-    <input type="text" id="expenseestimatedAmount" th:field="*{estimatedAmount}">
+    <input type="text" id="expenseestimatedAmount" th:field="*{estimatedAmount}" class="js-format-amount">
   </div>
   <div>
-    <button type="submit"> 編集</button>
+    <button type="submit">追加</button>
   </div>
 </form>
 </div>
