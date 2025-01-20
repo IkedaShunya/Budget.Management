@@ -7,6 +7,7 @@ import com.example.Budget.Management.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -38,6 +39,21 @@ public class CategoryService  {
 
         return category;
     }
+
+    /**
+     * カテゴリ一覧の検索
+     * @return　List<User>　カテゴリ情報の一覧（指定月以前の）
+     */
+    public Category searchCategoryByDay(int userId, LocalDate specifiedDate){
+
+        List<IncomeCategory> incomeCategories = repository.selectincategoryByDay(userId,specifiedDate);
+        List<ExpenseCategory> expenseCategories = repository.selectexcategoryByDay(userId,specifiedDate);
+
+        Category category = new Category(incomeCategories,expenseCategories);
+
+        return category;
+    }
+
 
     /**
      * 支出カテゴリの検索

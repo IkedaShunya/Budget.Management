@@ -68,9 +68,12 @@ public class BudgetController {
         List<IncomeBudget> incomeBudgetList = new ArrayList<>();
         List<ExpenseBudget> expenseBudgetList = new ArrayList<>();
 
+        //DBで開始日がきていないものは除外するための変数
+        LocalDate specifiedDate = LocalDate.of(selectedYear, selectedMonth, 01);
+
 
         //categoryテーブルからまずカテゴリ出す
-        Category categories = cateservice.searchCategory(sessioninf.getLoginUserId());
+        Category categories = cateservice.searchCategoryByDay(sessioninf.getLoginUserId(),specifiedDate);
         List<IncomeCategory>  incomeCategories = categories.getIncomeCategories();
         List<ExpenseCategory> expenseCategories = categories.getExpenseCategories();
 

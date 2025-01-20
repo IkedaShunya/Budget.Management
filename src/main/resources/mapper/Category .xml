@@ -3,35 +3,47 @@
 <!--どのマッパーに紐づくか定義する-->
 <mapper namespace="com.example.Budget.Management.repository.CategoryRepository">
     <select id="selectincategoryByuserId" resultType="com.example.Budget.Management.entity.IncomeCategory">
-        SELECT category_id, user_id, category_name, estimated_amount, is_regular_income
+        SELECT category_id, user_id, category_name, estimated_amount, is_regular_income ,start_date
         FROM income_category
         WHERE user_id = #{userId} AND delete_flag=0
-        ORDER BY is_regular_income DESC;
+        ORDER BY start_date, is_regular_income DESC ;
+    </select>
+    <select id="selectincategoryByDay" resultType="com.example.Budget.Management.entity.IncomeCategory">
+        SELECT category_id, user_id, category_name, estimated_amount, is_regular_income ,start_date
+        FROM income_category
+        WHERE user_id = #{userId} AND delete_flag=0 AND start_date &lt;= #{specifiedDate}
+        ORDER BY start_date, is_regular_income DESC ;
     </select>
     <select id="selectexcategoryByuserId" resultType="com.example.Budget.Management.entity.ExpenseCategory">
-        SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount
+        SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount ,start_date
         FROM expense_category
         WHERE user_id = #{userId} AND delete_flag=0
-        ORDER BY is_fixed_cost DESC;
+        ORDER BY start_date, is_fixed_cost DESC ;
+    </select>
+    <select id="selectexcategoryByDay" resultType="com.example.Budget.Management.entity.ExpenseCategory">
+        SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount ,start_date
+        FROM expense_category
+        WHERE user_id = #{userId} AND delete_flag=0 AND start_date &lt;= #{specifiedDate}
+        ORDER BY start_date, is_fixed_cost DESC ;
     </select>
 
     <select id="selectexcategoryCategoryId" resultType="com.example.Budget.Management.entity.ExpenseCategory">
-        SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount
+        SELECT category_id, user_id, category_name, is_fixed_cost,estimated_amount ,start_date
         FROM expense_category
         WHERE category_id = #{categoryId} AND delete_flag=0;
     </select>
     <update id="updateExpensecategoryinf" parameterType="com.example.Budget.Management.entity.ExpenseCategory">
-        UPDATE expense_category SET category_name=#{categoryName}, is_fixed_cost=#{isFixedCost}, estimated_amount=#{estimatedAmount}
+        UPDATE expense_category SET category_name=#{categoryName}, is_fixed_cost=#{isFixedCost}, estimated_amount=#{estimatedAmount} ,start_date=#{startDate}
         WHERE category_id=#{categoryId}
     </update>
 
     <select id="selectincategoryCategoryId" resultType="com.example.Budget.Management.entity.IncomeCategory">
-        SELECT category_id, user_id, category_name, is_regular_income,estimated_amount
+        SELECT category_id, user_id, category_name, is_regular_income,estimated_amount ,start_date
         FROM income_category
         WHERE category_id = #{categoryId} AND delete_flag=0;
     </select>
     <update id="updateIncomecategoryinf" parameterType="com.example.Budget.Management.entity.IncomeCategory">
-        UPDATE income_category SET category_name=#{categoryName}, is_regular_income=#{isRegularIncome}, estimated_amount=#{estimatedAmount}
+        UPDATE income_category SET category_name=#{categoryName}, is_regular_income=#{isRegularIncome}, estimated_amount=#{estimatedAmount},start_date=#{startDate}
         WHERE category_id=#{categoryId}
     </update>
 
@@ -46,15 +58,15 @@
 
     <insert id="insertIncomeCategory" parameterType="com.example.Budget.Management.entity.IncomeCategory">
     INSERT INTO income_category
-    (user_id, category_name, estimated_amount, is_regular_income)
+    (user_id, category_name, estimated_amount, is_regular_income,start_date)
     VALUES
-    (#{userId},#{categoryName}, #{estimatedAmount}, #{isRegularIncome});
+    (#{userId},#{categoryName}, #{estimatedAmount}, #{isRegularIncome},#{startDate});
     </insert>
     <insert id="insertExpenseCategory" parameterType="com.example.Budget.Management.entity.ExpenseCategory">
     INSERT INTO expense_category
-    (user_id, category_name, is_fixed_cost, estimated_amount)
+    (user_id, category_name, is_fixed_cost, estimated_amount,start_date)
     VALUES
-    (#{userId},#{categoryName}, #{isFixedCost}, #{estimatedAmount});
+    (#{userId},#{categoryName}, #{isFixedCost}, #{estimatedAmount},#{startDate});
     </insert>
 
 </mapper>

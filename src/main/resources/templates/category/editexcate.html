@@ -29,6 +29,10 @@
     <input type="text" id="estimatedAmount" th:field="*{estimatedAmount}" class="js-format-amount" >　円
   </div>
   <div>
+    <label for="expensestartDate" class="start-date-label">開始年月：</label>
+    <input type="month" id="expensestartDate" th:field="${expenseCategory.startDate}" class="start-date-input">
+  </div>
+  <div>
     <button type="submit"> 編集</button>
   </div>
 </form>

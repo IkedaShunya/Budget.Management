@@ -5,6 +5,7 @@ import com.example.Budget.Management.entity.IncomeCategory;
 import com.example.Budget.Management.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -21,10 +22,13 @@ public interface CategoryRepository {
      */
     List<IncomeCategory>  selectincategoryByuserId(int userId);
 
+    List<IncomeCategory>  selectincategoryByDay(int userId, LocalDate specifiedDate);
+
     /**
      * 指定したユーザーの支出カテゴリを検索する
      */
     List<ExpenseCategory> selectexcategoryByuserId(int userId);
+    List<ExpenseCategory> selectexcategoryByDay(int userId, LocalDate specifiedDate);
 
     /**
      * 指定したカテゴリーIDを検索する

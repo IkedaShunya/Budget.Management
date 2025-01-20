@@ -42,7 +42,7 @@ div[th\\:if] {
 
 /* テーブルスタイル */
 table {
-    width: 90%;
+    width: 75%;
     margin: 20px auto;
     border-collapse: collapse;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -116,27 +116,32 @@ a:hover {
 /* 列ごとに比率を設定 */
 table th:nth-child(1), /* 形態 / 費用区分 */
 table td:nth-child(1) {
-    width: 15%; /* 形態の幅 */
+    width: 13%; /* 形態の幅 */
 }
 
 table th:nth-child(2), /* カテゴリ名 */
 table td:nth-child(2) {
-    width: 25%; /* カテゴリ名の幅 */
+    width: 22%; /* カテゴリ名の幅 */
 }
 
 table th:nth-child(3), /* 予想収入金額 (円) / 予想支出金額 (円) */
 table td:nth-child(3) {
-    width: 35%; /* 金額列の幅 */
+    width: 30%; /* 金額列の幅 */
 }
 
-table th:nth-child(4), /* 削除 */
+table th:nth-child(4), /* 開始年月 */
 table td:nth-child(4) {
-    width: 12.5%; /* 削除列の幅 */
+    width: 15%; /* 開始年月 */
 }
 
-table th:nth-child(5), /* 編集 */
+table th:nth-child(5),/* 削除 */
 table td:nth-child(5) {
-    width: 12.5%; /* 編集列の幅 */
+    width: 10%; /* 削除列の幅 */
+}
+
+table th:nth-child(6), /* 編集 */
+table td:nth-child(6) {
+    width: 10%; /* 編集列の幅 */
 }
 
 

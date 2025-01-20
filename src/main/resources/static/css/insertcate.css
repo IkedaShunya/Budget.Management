@@ -66,8 +66,8 @@ form {
   border-radius: 8px; /* 丸み */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 立体感 */
   margin: 20px auto; /* 上下中央寄せ */
-  width: 90%; /* 幅を調整 */
-  max-width: 500px; /* 最大幅を設定 */
+  width: 100%; /* 幅を調整 */
+  max-width: 600px; /* 最大幅を設定 */
 }
 
 /* ラベルのスタイル */
@@ -82,7 +82,7 @@ form label {
 /* テキストボックスのスタイル */
 form input[type="text"],
 form select {
-  width: 100%; /* 横幅いっぱい */
+  width: auto; /* 横幅いっぱい */
   padding: 10px; /* 内側余白 */
   border: 1px solid #ccc; /* ボーダー */
   border-radius: 5px; /* 丸み */
@@ -98,6 +98,7 @@ form select:focus {
   border-color: #007bff; /* フォーカス時のボーダー色 */
   outline: none; /* アウトラインを非表示 */
 }
+
 
 /* ボタンのスタイル */
 form button {
@@ -138,12 +139,50 @@ a.btn:hover {
   box-shadow: 0 3px 6px rgba(33, 136, 56, 0.3);
 }
 
+/* 開始年月フィールド全体のスタイル */
+.start-date-container {
+  margin-bottom: 20px; /* 下の余白 */
+}
+
+/* ラベルの共通スタイル */
+.start-date-label {
+  font-weight: bold; /* 太字 */
+  color: #555; /* テキスト色 */
+  display: block; /* ブロック表示 */
+  margin-bottom: 8px; /* 下の余白 */
+  font-size: 1em; /* フォントサイズ */
+}
+
+/* 開始年月入力フィールドの共通スタイル */
+.start-date-input {
+  width: auto; /* 横幅を最大に */
+  margin-bottom: 20px;
+  padding: 10px; /* 内側余白 */
+  border: 1px solid #ccc; /* ボーダー */
+  border-radius: 5px; /* 丸み */
+  font-size: 16px; /* フォントサイズ */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 内側に影 */
+  transition: border-color 0.3s ease; /* ボーダー色の変化にアニメーション */
+}
+
+/* フォーカス時のスタイル */
+.start-date-input:focus {
+  border-color: #007bff; /* フォーカス時のボーダー色 */
+  outline: none; /* アウトラインを消去 */
+}
+
+
+
 /* モバイル端末対応 */
 @media (max-width: 768px) {
   .bl_selectToggle {
     width: 100%; /* 横幅を100%に */
     font-size: 14px; /* フォントサイズを少し小さく */
   }
+
+  .start-date-input {
+      font-size: 14px; /* フォントサイズを少し小さく */
+    }
 
   form {
     width: 95%; /* フォームの幅を調整 */

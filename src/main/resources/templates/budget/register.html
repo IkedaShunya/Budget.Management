@@ -1,54 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link th:href="@{/css/inputBudget.css}" rel="stylesheet" />
-  <title>予算入力</title>
-  <script>
-      // ページ読み込み時の処理
-window.onload = function () {
-    // 初期値をフォーマットする関数
-    function formatInitialValues(selector) {
-        document.querySelectorAll(selector).forEach(function (input) {
-            if (input.value) {
-                input.value = new Intl.NumberFormat().format(input.value);
-            }
-        });
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/inputBudget.css}" rel="stylesheet" />
+    <title>予算入力</title>
+    <script>
+        // ページ読み込み時の処理
+  window.onload = function () {
+      // 初期値をフォーマットする関数
+      function formatInitialValues(selector) {
+          document.querySelectorAll(selector).forEach(function (input) {
+              if (input.value) {
+                  input.value = new Intl.NumberFormat().format(input.value);
+              }
+          });
+      }
 
-    // カンマを削除する関数
-    function removeCommas(selector) {
-        document.querySelectorAll(selector).forEach(function (input) {
-            input.value = input.value.replace(/,/g, '');
-        });
-    }
+      // カンマを削除する関数
+      function removeCommas(selector) {
+          document.querySelectorAll(selector).forEach(function (input) {
+              input.value = input.value.replace(/,/g, '');
+          });
+      }
 
-    // フォーム送信時にカンマを削除
-    document.querySelector('form.budget-form').addEventListener('submit', function () {
-        removeCommas('.amount-input');
-    });
+      // フォーム送信時にカンマを削除
+      document.querySelector('form.budget-form').addEventListener('submit', function () {
+          removeCommas('.amount-input');
+      });
 
-    // 初期値をフォーマット
-    formatInitialValues('.amount-input');
-};
+      // 初期値をフォーマット
+      formatInitialValues('.amount-input');
 
-// 入力時にリアルタイムでカンマを挿入する関数
-function restrictAndFormat(input) {
-    // 現在のカーソル位置を記録
-    const cursorPosition = input.selectionStart;
+      // 合計値を初期計算
+      updateTotal('.income-table');
+      updateTotal('.expense-table');
+  };
 
-    // 入力値から数値以外の文字を削除
-    let value = input.value.replace(/[^0-9]/g, '');
+  // 入力時にリアルタイムでカンマを挿入する関数
+  function restrictAndFormat(input) {
+      // 現在のカーソル位置を記録
+      const cursorPosition = input.selectionStart;
 
-    // フォーマットを適用
-    input.value = new Intl.NumberFormat().format(value);
+      // 入力値から数値以外の文字を削除
+      let value = input.value.replace(/[^0-9]/g, '');
 
-    // カーソル位置を調整
-    const diff = input.value.length - value.length;
-    input.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
-}
-  </script>
+      // フォーマットを適用
+      input.value = new Intl.NumberFormat().format(value);
+
+      // カーソル位置を調整
+      const diff = input.value.length - value.length;
+      input.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+  }
+
+  // 合計を計算して表示する関数
+  function updateTotal(tableSelector) {
+      // テーブル内の金額入力要素を取得
+      const inputs = document.querySelectorAll(`${tableSelector} .amount-input`);
+      let total = 0;
+
+      // 各入力値を集計
+      inputs.forEach(input => {
+          const value = input.value.replace(/,/g, ''); // カンマを除去して数値化
+          if (!isNaN(value) && value.trim() !== '') {
+              total += parseInt(value, 10);
+          }
+      });
+
+      // 合計値を表示
+      const totalCell = document.querySelector(`${tableSelector} tfoot td:nth-child(2)`);
+      totalCell.textContent = new Intl.NumberFormat().format(total) + '円';
+  }
+    </script>
 </head>
 <body>
 <div th:if="${message}" style="text-align: left; color: red; font-weight: bold;">
@@ -74,7 +97,6 @@ function restrictAndFormat(input) {
         </div>
         <button type="submit">表示</button>
     </div>
-
 </form>
 <form class="budget-form" th:action="@{/budget/insert/execute}" th:object="${budgetList}" method="post">
     <h2 class="section-title">収入</h2>
@@ -98,12 +120,18 @@ function restrictAndFormat(input) {
             <td class="amount-column">
                 <input class="amount-input" type="text"
                        th:field="*{incomeBudgets[__${iterStat.index}__].budgetAmount}"
-                       oninput="restrictAndFormat(this)"
+                       oninput="restrictAndFormat(this); updateTotal('.income-table')"
                        placeholder="金額を入力してください"
                        autocomplete="off" />円
             </td>
         </tr>
         </tbody>
+        <tfoot>
+        <tr>
+            <td>合計</td>
+            <td id="income-total">0円</td>
+        </tr>
+        </tfoot>
     </table>
 
     <h2 class="section-title">支出</h2>
@@ -127,12 +155,18 @@ function restrictAndFormat(input) {
             <td class="amount-column">
                 <input class="amount-input" type="text"
                        th:field="*{expenseBudgets[__${iterStat.index}__].budgetAmount}"
-                       oninput="restrictAndFormat(this)"
+                       oninput="restrictAndFormat(this); updateTotal('.expense-table')"
                        placeholder="金額を入力してください"
                        autocomplete="off" />円
             </td>
         </tr>
         </tbody>
+        <tfoot>
+        <tr>
+            <td>合計</td>
+            <td id="expense-total">0円</td>
+        </tr>
+        </tfoot>
     </table>
     <br>
     <button type="submit">送信</button>

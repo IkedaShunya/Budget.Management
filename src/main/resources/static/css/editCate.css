@@ -84,3 +84,21 @@ a.cancel-btn {
 a.cancel-btn:hover {
   background-color: #5a6268;
 }
+
+/* 開始年月入力フィールドの共通スタイル */
+.start-date-input {
+  width: auto; /* 横幅を最大に */
+  margin-bottom: 20px;
+  padding: 10px; /* 内側余白 */
+  border: 1px solid #ccc; /* ボーダー */
+  border-radius: 5px; /* 丸み */
+  font-size: 16px; /* フォントサイズ */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 内側に影 */
+  transition: border-color 0.3s ease; /* ボーダー色の変化にアニメーション */
+}
+
+/* フォーカス時のスタイル */
+.start-date-input:focus {
+  border-color: #007bff; /* フォーカス時のボーダー色 */
+  outline: none; /* アウトラインを消去 */
+}
