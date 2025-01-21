@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/editCate.css}" rel="stylesheet" />
+  <title>銀行情報の編集</title>
+</head>
+<body>
+<h1>カテゴリー情報の編集</h1>
+<form th:action="@{/bank/edit-bankinf/execute}" th:object="${bankinf}" method="post">
+  <div>
+    <label for="bankId"></label>
+    <input type="hidden" id="bankId" th:field="*{bankId}">
+  </div>
+  <div>
+    <label for="userId"></label>
+    <input type="hidden" id="userId" th:field="*{userId}">
+  </div>
+  <div>
+    <label for="bankName">銀行名：</label>
+    <input type="text" id="bankName" th:field="*{bankName}">
+  </div>
+  <div>
+    <label for="deleteFlag">削除</label>
+    <!-- チェックボックスが未チェックの場合のデフォルト値 -->
+    <!--        チェックボックスが未チェックの場合、ブラウザはその値を送信しないため、<input type="hidden"> でデフォルト値 (0) を補完します。-->
+    <!--        <input type="hidden" th:field="*{deleteFlag}" value="0" />-->
+    <!-- チェックボックスがチェックされた場合の値 -->
+    <input type="checkbox" id="deleteFlag"  name ="deleteFlag"  th:field="*{deleteFlag}" value="1"/>
+  </div>
+
+  <div>
+    <button type="submit"> 編集</button>
+  </div>
+</form>
+<!-- 戻るボタン -->
+<a th:href="@{/bank/list}" class="cancel-btn">キャンセル</a>
+</body>
+</html>
