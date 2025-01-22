@@ -18,14 +18,14 @@ public interface CreditRepository {
     /**
      * 銀行情報の登録
      */
-    void insertBankInf(Credit credit);
+    void insertCreditInf(Credit credit);
 
     /**
      * 銀行情報の更新
      */
-    void updateBankInf(Credit credit);
+    void updateCreditInf(Credit credit);
 
-    void deleteBankInf(int creditcardId);
+    void deleteCreditInf(int creditcardId);
 
 
 }

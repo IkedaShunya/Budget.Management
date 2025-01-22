@@ -4,71 +4,54 @@
 <mapper namespace="com.example.Budget.Management.repository.CategoryRepository">
     <select id="selectCreditInf" resultType="com.example.Budget.Management.entity.Credit">
         SELECT
-        c.creditcard_id,
-        c.user_id,
-        c.creditcard_name,
-        b.bank_id,
-        b.bank_name,
-        c.TransferDate,
-        c.kindExpense,
-        c.delete_flag
+        c.creditcard_id AS creditcardId,
+        c.user_id AS userId,
+        c.creditcard_name AS creditcardName,
+        b.bank_id AS bankId,
+        b.bank_name AS bankName,
+        c.TransferDate AS TransferDate,
+        c.kindExpense AS kindExpense,
+        c.delete_flag AS deleteFlag
         FROM creditcard c
         INNER JOIN bank b
         ON c.bank_id  = b.bank_id
         WHERE user_id = #{userId};
     </select>
-    b.user_id AS userId,
 
-    INNER JOIN income_category c
-    ON b.category_id = c.category_id
     <select id="selectBankInfbyCreditId" resultType="com.example.Budget.Management.entity.Credit">
-        SELECT bank_id, user_id, bank_name, delete_flag
-        FROM bank
-        WHERE user_id = #{userId} AND bank_id = #{bankId};
+        SELECT
+        c.creditcard_id AS creditcardId,
+        c.user_id AS userId,
+        c.creditcard_name AS creditcardName,
+        b.bank_id AS bankId,
+        b.bank_name AS bankName,
+        c.TransferDate AS TransferDate,
+        c.kindExpense AS kindExpense,
+        c.delete_flag AS deleteFlag
+        FROM creditcard c
+        INNER JOIN bank b
+        ON c.bank_id  = b.bank_id
+        WHERE user_id = #{userId};
     </select>
 
 
-    SELECT
-    b.user_id AS userId,
-    b.budget_amount AS budgetAmount,
-    b.category_id AS categoryId,
-    c.category_name AS categoryName,
-    c.is_regular_income AS isRegularIncome,
-    b.year AS year,
-    b.month AS month
-    FROM income_budget b
-    INNER JOIN income_category c
-    ON b.category_id = c.category_id
-    WHERE
-    <if test="incomecateIdList != null and incomecateIdList.size > 0">
-        b.category_id NOT IN
-        <foreach collection="incomecateIdList" item="id" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </if>
-    <if test="incomecateIdList == null or incomecateIdList.size == 0">
-        1=1
-    </if>
-    AND b.year = #{selectedYear}
-    AND b.month = #{selectedMonth}
-    AND b.user_id = #{userid};
+    <insert id="insertCreditInf" parameterType="com.example.Budget.Management.entity.Credit">
+        INSERT INTO creditcard
+        (user_id , creditcard_name,bank_id,TransferDate,kindExpense)
+        VALUES
+        (#{userId},#{creditcardName},#{bankId},#{TransferDate},#{userId});
+    </insert>
 
-<!--    <insert id="insertBankInf" parameterType="com.example.Budget.Management.entity.Bank">-->
-<!--        INSERT INTO bank (user_id, bank_name)-->
-<!--        VALUES-->
-<!--        (#{userId}, #{bankName});-->
-<!--    </insert>-->
-
-<!--    <update id="updateBankInf" parameterType="com.example.Budget.Management.entity.Bank">-->
-<!--        UPDATE bank-->
-<!--        SET bank_name=#{bankName}, delete_flag=#{deleteFlag}-->
-<!--        WHERE user_id = #{userId} AND bank_id = #{bankId};-->
-<!--    </update>-->
-<!--    <update id="deleteBankInf">-->
-<!--        UPDATE bank-->
-<!--        SET delete_flag=1-->
-<!--        WHERE bank_id = #{bankId};-->
-<!--    </update>-->
+    <update id="updateCreditInf" parameterType="com.example.Budget.Management.entity.Credit">
+        UPDATE creditcard
+        SET bank_name=#{creditcardName}, bank_id=#{bankId}, TransferDate=#{TransferDate},delete_flag=#{deleteFlag}
+        WHERE user_id = #{userId} AND bank_id = #{bankId};
+    </update>
+    <update id="deleteCreditInf">
+        UPDATE creditcard
+        SET delete_flag=1
+        WHERE creditcard_id = #{creditcardId};
+    </update>
 
 
 </mapper>
