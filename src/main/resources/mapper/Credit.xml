@@ -39,7 +39,7 @@
         INSERT INTO creditcard
         (user_id , creditcard_name,bank_id,TransferDate,kindExpense)
         VALUES
-        (#{userId},#{creditcardName},#{bankId},#{TransferDate},#{userId});
+        (#{userId},#{creditcardName},#{bankId},#{TransferDate},#{kindExpense});
     </insert>
 
     <update id="updateCreditInf" parameterType="com.example.Budget.Management.entity.Credit">

@@ -9,7 +9,7 @@ public class Credit {
     private String creditcardName;
     private Integer bankId;
     private String bankName;
-    private int TransferDate;
-    private int kindExpense;
+    private Integer TransferDate;
+    private Integer kindExpense;
     private int deleteFlag;
 }

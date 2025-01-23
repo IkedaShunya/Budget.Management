@@ -18,24 +18,28 @@ import java.util.List;
 @Controller
 @RequestMapping("/credit")
 public class CreditController {
-    /**DI*/
+    /**
+     * DI
+     */
     private CreditService service;
     private BankService bankService;
     private SessioninfGet sessioninf;
 
     @Autowired
-    public CreditController(CreditService service,BankService bankService,SessioninfGet sessioninf){
+    public CreditController(CreditService service, BankService bankService, SessioninfGet sessioninf) {
         this.service = service;
         this.bankService = bankService;
         this.sessioninf = sessioninf;
 
     }
+
     @ModelAttribute
-    public Credit setUpCreditFrom(){
+    public Credit setUpCreditFrom() {
         return new Credit();
     }
+
     @ModelAttribute
-    public Bank setUpBankFrom(){
+    public Bank setUpBankFrom() {
         return new Bank();
     }
 
@@ -43,7 +47,7 @@ public class CreditController {
      * メニュー画面
      */
     @GetMapping("")
-    public String getMenu(){
+    public String getMenu() {
         return "credit/menu";
     }
 
@@ -51,17 +55,18 @@ public class CreditController {
      * Creditリストの表示
      */
     @GetMapping("/list")
-    public String getCreditInflist(Model model){
+    public String getCreditInflist(Model model) {
         List<Credit> creditList = service.searchCredit();
-        model.addAttribute("creditList",creditList);
+        model.addAttribute("creditList", creditList);
         return "credit/list";
     }
+
     /**
      * Creditの削除
      */
     @GetMapping("/delete")
     public String deleteCredit(@RequestParam("id") String creditcardId,
-                             Model model, RedirectAttributes redirectAttributes){
+                               Model model, RedirectAttributes redirectAttributes) {
         service.deleteCreditInf(Integer.parseInt(creditcardId));
         redirectAttributes.addFlashAttribute("message", "削除が完了しました");
         return "redirect:/credit/list";
@@ -73,27 +78,28 @@ public class CreditController {
      * Creditの編集
      */
     @GetMapping("/edit-credit")
-    public String creditinfDisplay(@RequestParam("id") int creditId, Model model){
+    public String creditinfDisplay(@RequestParam("id") int creditId, Model model) {
 
         Credit credit = service.searchCreditInfByCreditId(creditId);
-        model.addAttribute("credit",credit);
-        if(credit.getTransferDate()==-1){
+        model.addAttribute("credit", credit);
+        if (credit.getTransferDate() == -1) {
             model.addAttribute("isLastDay", true); // 初期状態は「末日チェックあり」
-        }else{
+        } else {
             model.addAttribute("isLastDay", false); // 初期状態は「末日チェックなし」
         }
 
 
-        List<Bank> bankList =bankService.searchBankInf(sessioninf.getLoginUserId());
-        model.addAttribute("bankList",bankList);
+        List<Bank> bankList = bankService.searchBankInf(sessioninf.getLoginUserId());
+        model.addAttribute("bankList", bankList);
 
         return "credit/edit";
 
     }
+
     @PostMapping("/edit-credit/execute")
     public String editCredit(@ModelAttribute Credit credit,
                              @RequestParam(name = "isLastDay", defaultValue = "false") boolean isLastDay,
-            BindingResult result, Model model, RedirectAttributes redirectAttributes){
+                             BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         //末払い-1の時の処理
         // 末日がチェックされていたら day を -1 に設定
         if (isLastDay) {
@@ -111,20 +117,25 @@ public class CreditController {
      * Creditの登録
      */
     @GetMapping("/insert")
-    public String insertDisplay(Model model){
+    public String insertDisplay(Model model) {
+        List<Bank> bankList = bankService.searchBankInf(sessioninf.getLoginUserId());
+        model.addAttribute("bankList", bankList);
         return "credit/insert";
     }
 
     @PostMapping("/insert/execute")
     public String insertCredit(@ModelAttribute Credit credit
-            , BindingResult result, Model model, RedirectAttributes redirectAttributes){
+            , @RequestParam(name = "isLastDay", defaultValue = "false") boolean isLastDay
+            , BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         //末払い-1の時の処理
+        if (isLastDay) {
+            credit.setTransferDate(-1);
+        }
         service.insertCreditInf(credit);
         redirectAttributes.addFlashAttribute("message", "登録が完了しました");
         //mapping(java側にリダイレクトしている)
         return "redirect:/credit/list";
     }
-
 
 
 }
