@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/editCredit.css}" rel="stylesheet" />
+  <title>クレジット情報の編集</title>
+</head>
+<body>
+<h1>クレジット情報の編集</h1>
+<form th:action="@{/credit/edit-credit/execute}" th:object="${credit}" method="post">
+  <div>
+    <label for="creditcardId"></label>
+    <input type="hidden" id="creditcardId" th:field="*{creditcardId}">
+  </div>
+  <div>
+    <label for="userId"></label>
+    <input type="hidden" id="userId" th:field="*{userId}">
+  </div>
+  <div>
+    <label for="creditcardName">クレジットカード名：</label>
+    <input type="text" id="creditcardName" th:field="*{creditcardName}">
+  </div>
+  <div>
+    <div>
+      <label for="bankId">銀行:</label>
+      <select id="bankId" th:field="${credit.bankId}">
+<!--        <option value="" disabled>選択してください</option>-->
+        <option th:each="bank : ${bankList}"
+                th:value="${bank.bankId}"
+                th:selected="${bank.bankId == credit.bankId}"
+                th:text="${bank.bankName}">
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <!-- 日にち -->
+    <div>
+      <label for="dayInput">日にち:</label>
+      <input type="number" id="dayInput" name="day" min="1" max="28"
+             th:disabled="${isLastDay}" th:field="*{TransferDate}"/>日
+    </div>
+    <!-- 末日のチェックボックス -->
+    <div class="last-day">
+      <input type="checkbox" id="lastDayCheck" name="isLastDay" th:checked="${isLastDay}"
+             onclick="toggleDayInput(this)">
+      <label for="lastDayCheck" style="font-weight: normal;">末日</label>
+    </div>
+  </div>
+  <div>
+    <label for="kindExpense">種別：</label>
+    <select id="kindExpense" th:field="*{kindExpense}">
+      <option value="1" th:selected="*{kindExpense == 1}">銀行引落</option>
+      <option value="0" th:selected="*{kindExpense == 0}">クレジット</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit"> 編集</button>
+  </div>
+</form>
+<script>
+  // ページ読み込み時に初期値を保持する
+ let dayInput = document.getElementById('dayInput');
+ let initialDayValue = dayInput.value;
+
+ // 初期値が -1 の場合は空に設定
+ if (initialDayValue === "-1") {
+     dayInput.value = ""; // 空文字に設定
+     initialDayValue = ""; // 初期値も空として保持
+ }
+
+ // 末日のチェックボックスがオン/オフされたときの処理
+ function toggleDayInput(checkbox) {
+     if (checkbox.checked) {
+         dayInput.disabled = true; // 無効化
+         dayInput.value = ''; // 無効化時に値をリセット
+     } else {
+         dayInput.disabled = false; // 有効化
+         // 初期値を再設定。ただし、空文字の場合は何も設定しない
+         dayInput.value = initialDayValue !== "" ? initialDayValue : "";
+     }
+ }
+
+</script>
+
+<!-- 戻るボタン -->
+<a th:href="@{/credit/list}" class="cancel-btn">キャンセル</a>
+</body>
+</html>

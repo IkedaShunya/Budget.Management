@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/creditlist.css}" rel="stylesheet" />
+    <title>クレジット情報一覧</title>
+</head>
+<body>
+<h1>クレジット情報一覧</h1>
+<div th:if="${message}" style="text-align: left; color: red; font-weight: bold;">
+    <ul>
+        <li th:text="${message}"></li>
+    </ul>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>クレジット名</th>
+        <th>振込先</th>
+        <th>支払日</th>
+        <th style="word-wrap: break-word; white-space: normal; width: 60px;">削除<br>フラグ</th>
+        <th>削除</th>
+        <th>編集</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="credit, stat: ${creditList}">
+        <td th:text="${stat.index + 1}">1</td>
+        <td th:text="${credit.creditcardName}">楽天カード</td>
+        <td th:text="${credit.bankName}">三菱UFJ銀宅</td>
+        <td>
+            <span th:text="${credit.TransferDate == -1} ? '末日' : ${credit.TransferDate} +'日'"></span>
+        </td>
+        <td>
+            <!-- deleteFlag が １ の場合に「●」を表示 -->
+            <span th:text="${credit.deleteFlag == 1} ? '●' : ''"></span>
+        </td>
+        <td><a th:href="@{/credit/delete(id=${credit.creditcardId})}">削除</a></td>
+        <td><a th:href="@{/credit/edit-credit(id=${credit.creditcardId})}">編集</a></td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <a th:href="@{/credit/insert}" class="btn">クレジット情報追加</a>
+</p>
+<p>
+    <a th:href="@{/credit}" class="btn">メニューに戻る</a>
+</p>
+<p>
+    <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+</p>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--どのマッパーに紐づくか定義する-->
+<mapper namespace="com.example.Budget.Management.repository.CreditRepository">
+    <select id="selectCreditInf" resultType="com.example.Budget.Management.entity.Credit">
+        SELECT
+        c.creditcard_id AS creditcardId,
+        c.user_id AS userId,
+        c.creditcard_name AS creditcardName,
+        b.bank_id AS bankId,
+        b.bank_name AS bankName,
+        c.TransferDate AS TransferDate,
+        c.kindExpense AS kindExpense,
+        c.delete_flag AS deleteFlag
+        FROM creditcard c
+        INNER JOIN bank b
+        ON c.bank_id  = b.bank_id
+        WHERE c.user_id = #{userId};
+    </select>
+
+    <select id="selectBankInfbyCreditId" resultType="com.example.Budget.Management.entity.Credit">
+        SELECT
+        c.creditcard_id AS creditcardId,
+        c.user_id AS userId,
+        c.creditcard_name AS creditcardName,
+        b.bank_id AS bankId,
+        b.bank_name AS bankName,
+        c.TransferDate AS TransferDate,
+        c.kindExpense AS kindExpense,
+        c.delete_flag AS deleteFlag
+        FROM creditcard c
+        INNER JOIN bank b
+        ON c.bank_id  = b.bank_id
+        WHERE c.user_id = #{userId} AND c.creditcard_id= #{creditcardId};
+    </select>
+
+
+    <insert id="insertCreditInf" parameterType="com.example.Budget.Management.entity.Credit">
+        INSERT INTO creditcard
+        (user_id , creditcard_name,bank_id,TransferDate,kindExpense)
+        VALUES
+        (#{userId},#{creditcardName},#{bankId},#{TransferDate},#{userId});
+    </insert>
+
+    <update id="updateCreditInf" parameterType="com.example.Budget.Management.entity.Credit">
+        UPDATE creditcard
+        SET creditcard_name=#{creditcardName}, bank_id=#{bankId}, TransferDate=#{TransferDate}
+        WHERE user_id = #{userId} AND creditcard_id = #{creditcardId};
+    </update>
+    <update id="deleteCreditInf">
+        UPDATE creditcard
+        SET delete_flag=1
+        WHERE creditcard_id = #{creditcardId};
+    </update>
+
+
+</mapper>

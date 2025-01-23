@@ -42,7 +42,7 @@ div[th\\:if] {
 
 /* テーブルスタイル */
 table {
-    width: 90%;
+    width: 60%;
     margin: 20px auto;
     border-collapse: collapse;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -114,35 +114,40 @@ a:hover {
 }
 
 /* 列ごとに比率を設定 */
-table th:nth-child(1), /* 形態 / 費用区分 */
+table th:nth-child(1), /* ID */
 table td:nth-child(1) {
-    width: 13%; /* 形態の幅 */
+    width: 10%; /* 形態の幅 */
 }
 
-table th:nth-child(2), /* カテゴリ名 */
+table th:nth-child(2), /* クレジット名 */
 table td:nth-child(2) {
-    width: 22%; /* カテゴリ名の幅 */
+    width: 25%; /* カテゴリ名の幅 */
 }
 
-table th:nth-child(3), /* 予想収入金額 (円) / 予想支出金額 (円) */
+table th:nth-child(3), /* 振込先 */
 table td:nth-child(3) {
-    width: 30%; /* 金額列の幅 */
+    width: 22%; /* 金額列の幅 */
 }
 
-table th:nth-child(4), /* 開始年月 */
+table th:nth-child(4), /* 支払日 */
 table td:nth-child(4) {
-    width: 15%; /* 開始年月 */
+    width: 11%; /* 開始年月 */
 }
 
-table th:nth-child(5),/* 削除 */
+table th:nth-child(5),/* 削除フラグ */
 table td:nth-child(5) {
+    width: 11%; /* 削除列の幅 */
+}
+
+table th:nth-child(6),/* 削除 */
+table td:nth-child(6) {
+    width: 10%; /* 削除列の幅 */
+}
+table th:nth-child(7),/*編集 */
+table td:nth-child(7) {
     width: 10%; /* 削除列の幅 */
 }
 
-table th:nth-child(6), /* 編集 */
-table td:nth-child(6) {
-    width: 10%; /* 編集列の幅 */
-}
 
 
 /* スマホ対応のレスポンシブデザイン */

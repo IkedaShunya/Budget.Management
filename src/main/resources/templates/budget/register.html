@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/inputBudget.css}" rel="stylesheet" />
+    <title>予算入力</title>
+    <script>
+        // ページ読み込み時の処理
+  window.onload = function () {
+      // 初期値をフォーマットする関数
+      function formatInitialValues(selector) {
+          document.querySelectorAll(selector).forEach(function (input) {
+              if (input.value) {
+                  input.value = new Intl.NumberFormat().format(input.value);
+              }
+          });
+      }
+
+      // カンマを削除する関数
+      function removeCommas(selector) {
+          document.querySelectorAll(selector).forEach(function (input) {
+              input.value = input.value.replace(/,/g, '');
+          });
+      }
+
+      // フォーム送信時にカンマを削除
+      document.querySelector('form.budget-form').addEventListener('submit', function () {
+          removeCommas('.amount-input');
+      });
+
+      // 初期値をフォーマット
+      formatInitialValues('.amount-input');
+
+      // 合計値を初期計算
+      updateTotal('.income-table');
+      updateTotal('.expense-table');
+  };
+
+  // 入力時にリアルタイムでカンマを挿入する関数
+  function restrictAndFormat(input) {
+      // 現在のカーソル位置を記録
+      const cursorPosition = input.selectionStart;
+
+      // 入力値から数値以外の文字を削除
+      let value = input.value.replace(/[^0-9]/g, '');
+
+      // フォーマットを適用
+      input.value = new Intl.NumberFormat().format(value);
+
+      // カーソル位置を調整
+      const diff = input.value.length - value.length;
+      input.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+  }
+
+  // 合計を計算して表示する関数
+  function updateTotal(tableSelector) {
+      // テーブル内の金額入力要素を取得
+      const inputs = document.querySelectorAll(`${tableSelector} .amount-input`);
+      let total = 0;
+
+      // 各入力値を集計
+      inputs.forEach(input => {
+          const value = input.value.replace(/,/g, ''); // カンマを除去して数値化
+          if (!isNaN(value) && value.trim() !== '') {
+              total += parseInt(value, 10);
+          }
+      });
+
+      // 合計値を表示
+      const totalCell = document.querySelector(`${tableSelector} tfoot td:nth-child(2)`);
+      totalCell.textContent = new Intl.NumberFormat().format(total) + '円';
+  }
+    </script>
+</head>
+<body>
+<div th:if="${message}" style="text-align: left; color: red; font-weight: bold;">
+    <ul>
+        <li th:text="${message}"></li>
+    </ul>
+</div>
+<h1 class="page-title">予算入力</h1>
+<form th:action="@{/budget/register}" method="get">
+    <h2 class="section-title">年月選択</h2>
+    <div class="form-row">
+        <div class="select-group">
+            <label for="year">年:</label>
+            <select name="year" id="year" th:value="${selectedYear}">
+                <option th:each="year : ${years}" th:value="${year}" th:text="${year}" th:selected="${year} == ${selectedYear}"></option>
+            </select>
+        </div>
+        <div class="select-group">
+            <label for="month">  月:</label>
+            <select name="month" id="month">
+                <option th:each="month : ${months}" th:value="${month}" th:text="${month}" th:selected="${month} == ${selectedMonth}"></option>
+            </select>
+        </div>
+        <button type="submit">表示</button>
+    </div>
+</form>
+<form class="budget-form" th:action="@{/budget/insert/execute}" th:object="${budgetList}" method="post">
+    <h2 class="section-title">収入</h2>
+    <table class="budget-table income-table" border="1">
+        <thead>
+        <tr>
+            <th class="category-column">カテゴリ名</th>
+            <th class="amount-column">金額 (円)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="incomeBudget, iterStat : *{incomeBudgets}">
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].categoryId}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].userId}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].year}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].month}" />
+            <input type="hidden" th:field="*{incomeBudgets[__${iterStat.index}__].dbFlag}" />
+            <td class="category-column">
+                <span th:text="${incomeBudget.categoryName}"></span>
+            </td>
+            <td class="amount-column">
+                <input class="amount-input" type="text"
+                       th:field="*{incomeBudgets[__${iterStat.index}__].budgetAmount}"
+                       oninput="restrictAndFormat(this); updateTotal('.income-table')"
+                       placeholder="金額を入力してください"
+                       autocomplete="off" />円
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>合計</td>
+            <td id="income-total">0円</td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <h2 class="section-title">支出</h2>
+    <table class="budget-table expense-table" border="1">
+        <thead>
+        <tr>
+            <th class="category-column">カテゴリ名</th>
+            <th class="amount-column">金額 (円)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="expenseBudget, iterStat : *{expenseBudgets}">
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].categoryId}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].userId}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].year}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].month}" />
+            <input type="hidden" th:field="*{expenseBudgets[__${iterStat.index}__].dbFlag}" />
+            <td class="category-column">
+                <span th:text="*{expenseBudgets[__${iterStat.index}__].categoryName}"></span>
+            </td>
+            <td class="amount-column">
+                <input class="amount-input" type="text"
+                       th:field="*{expenseBudgets[__${iterStat.index}__].budgetAmount}"
+                       oninput="restrictAndFormat(this); updateTotal('.expense-table')"
+                       placeholder="金額を入力してください"
+                       autocomplete="off" />円
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>合計</td>
+            <td id="expense-total">0円</td>
+        </tr>
+        </tfoot>
+    </table>
+    <br>
+    <button type="submit">送信</button>
+</form>
+<!-- 戻るボタン -->
+<a th:href="@{/}" class="cancel-btn">メニューに戻る</a>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/insertcate.css}" rel="stylesheet" />
+  <title>銀行情報の登録</title>
+</head>
+<body>
+<h1>銀行情報の登録集</h1>
+<form th:action="@{/bank/insert/execute}" th:object="${bank}" method="post">
+  <div>
+    <label for="BankName">銀行名：</label>
+    <input type="text" id="BankName" th:field="*{bankName}">
+  </div>
+  <div>
+    <button type="submit">追加</button>
+  </div>
+</form>
+<!-- 戻るボタン -->
+<p>
+  <a th:href="@{/bank/list}" class="btn">リストへ</a>
+</p>
+<p>
+  <a th:href="@{/bank}" class="btn">メニューに戻る</a>
+</p>
+<p>
+  <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+  <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+</body>
+</html>

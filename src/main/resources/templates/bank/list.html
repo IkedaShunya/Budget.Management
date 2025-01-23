@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/banklist.css}" rel="stylesheet" />
+    <title>銀行情報一覧</title>
+</head>
+<body>
+<h1>銀行情報一覧</h1>
+<div th:if="${message}" style="text-align: left; color: red; font-weight: bold;">
+    <ul>
+        <li th:text="${message}"></li>
+    </ul>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>銀行名</th>
+        <th>削除フラグ</th>
+        <th>削除</th>
+        <th>編集</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bank, stat: ${bankList}">
+        <td th:text="${stat.index + 1}">定期</td>
+        <td th:text="${bank.bankName}">三菱UFJ</td>
+        <td>
+            <!-- deleteFlag が １ の場合に「●」を表示 -->
+            <span th:text="${bank.deleteFlag == 1} ? '●' : ''"></span>
+        </td>
+        <td><a th:href="@{/bank/delete(id=${bank.bankId})}">削除</a></td>
+        <td><a th:href="@{/bank/edit-bankinf(id=${bank.bankId})}">編集</a></td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <a th:href="@{/bank/insert}" class="btn">銀行情報追加</a>
+</p>
+<p>
+    <a th:href="@{/bank}" class="btn">メニューに戻る</a>
+</p>
+<p>
+    <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+</p>
+</body>
+</html>

@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+/* 全体の背景設定 */
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 見出しのスタイル */
+h1 {
+  text-align: center;
+  color: #007bff;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/* フォーム全体 */
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* 各入力フィールドのラベル */
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* テキストボックスとセレクトボックス */
+form input[type="text"],
+form select {
+  width: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+form input[type="number"], form select {
+    width: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* ボタンのスタイル */
+form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+/* ボタンホバー時 */
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* 戻るボタン */
+a.cancel-btn {
+  display: block;
+  text-align: center;
+  background-color: #6c757d;
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px auto;
+  max-width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+/* 戻るボタンホバー時 */
+a.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* 開始年月入力フィールドの共通スタイル */
+.start-date-input {
+  width: auto; /* 横幅を最大に */
+  margin-bottom: 20px;
+  padding: 10px; /* 内側余白 */
+  border: 1px solid #ccc; /* ボーダー */
+  border-radius: 5px; /* 丸み */
+  font-size: 15px; /* フォントサイズ */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 内側に影 */
+  transition: border-color 0.3s ease; /* ボーダー色の変化にアニメーション */
+}
+
+/* フォーカス時のスタイル */
+.start-date-input:focus {
+  border-color: #007bff; /* フォーカス時のボーダー色 */
+  outline: none; /* アウトラインを消去 */
+}
+
+  .form-row label {
+    margin-right: 5px; /* ラベルと入力欄の間隔を調整 */
+  }
+  .form-row .last-day {
+    display: flex;
+    align-items: center; /* チェックボックスと文字を揃える */
+    gap: 5px; /* チェックボックスと文字の間隔 */
+  }
+
+  .deleteFlag {
+      display: flex;
+      align-items: center; /* チェックボックスと文字を揃える */
+      gap: 5px; /* チェックボックスと文字の間隔 */
+  }
+
+
+
+  .form-row {
+      align-items: center; /* 中央揃え */
+      gap: 10px; /* 要素間の間隔を狭める */
+    }
+    .form-row label {
+      margin-right: 5px; /* ラベルと入力欄の間隔 */
+    }
+    .last-day {
+      display: flex;
+      align-items: center; /* チェックボックスとラベルを揃える */
+      gap: 5px; /* チェックボックスと「末日」の文字の間隔 */
+    }
+    .last-day label {
+      font-weight: normal; /* 太字を解除（必要に応じて） */
+      vertical-align: middle; /* 縦方向の位置をチェックボックスに揃える */
+      margin-top: -9px; /* 文字の位置をさらに上げる */
+      display: inline-block; /* margin-top を適用するために追加 */
+    }
+
+    /* チェックボックスのサイズを調整 */
+    form input[type="checkbox"] {
+      width: 10px; /* チェックボックスの幅 */
+      height: 10px; /* チェックボックスの高さ */
+      transform: scale(1.5); /* サイズを拡大 */
+      margin-right: 5px; /* ラベルとの間隔 */
+      cursor: pointer; /* マウスカーソルをポインタに */
+      margin-top: -13px;
+    }
+    /* 削除セクション全体を下げる */
+    .deleteFlag {
+      display: flex;
+      align-items: center; /* チェックボックスと文字を揃える */
+      gap: 5px; /* チェックボックスと文字の間隔 */
+      margin-top: 20px; /* 全体を下げる余白 */
+    }
+
+    /* 削除チェックボックスの位置をさらに下げる */
+    .deleteFlag input[type="checkbox"] {
+      margin-top: -4px; /* チェックボックスの位置を調整 */
+    }
+

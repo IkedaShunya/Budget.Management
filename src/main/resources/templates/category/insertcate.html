@@ -9,6 +9,7 @@
 <body>
 <h1>カテゴリー情報の編集</h1>
 <div class="bl_selectToggle_wrapper">
+  <label for="js_selectToggle">支出・収入の選択：</label>
   <select class="bl_selectToggle" id="js_selectToggle">
     <option value="income">収入</option>
     <option value="expense">支出</option>
@@ -19,8 +20,8 @@
   <div>
     <label for="isRegularIncome">定期収入：</label>
     <select id="isRegularIncome" th:field="*{isRegularIncome}">
-      <option value="1" th:selected="*{isRegularIncome == 1}">定期</option>
-      <option value="0" th:selected="*{isRegularIncome == 0}">不定期</option>
+      <option value="1" selected>定期</option>
+      <option value="0" >不定期</option>
     </select>
   </div>
   <div>
@@ -29,10 +30,14 @@
   </div>
   <div>
     <label for="incomeestimatedAmount">予測収入金額：</label>
-    <input type="text" id="incomeestimatedAmount" th:field="*{estimatedAmount}">
+    <input type="text" id="incomeestimatedAmount" th:field="*{estimatedAmount}"  class="js-format-amount">円
   </div>
   <div>
-    <button type="submit"> 編集</button>
+    <label for="incomestartDate" class="start-date-label">開始年月：</label>
+    <input type="month" id="incomestartDate" th:field="${incomeCategory.startDate}" class="start-date-input">
+  </div>
+  <div>
+    <button type="submit">追加</button>
   </div>
 </form>
 </div>
@@ -41,8 +46,8 @@
   <div>
     <label for="isFixedCost">費用区分：</label>
     <select id="isFixedCost" th:field="*{isFixedCost}">
-      <option value="1" th:selected="*{isFixedCost == 1}">固定費</option>
-      <option value="0" th:selected="*{isFixedCost == 0}">変動費</option>
+      <option value="1" selected>固定費</option>
+      <option value="0" >変動費</option>
     </select>
   </div>
   <div>
@@ -51,25 +56,31 @@
   </div>
   <div>
     <label for="expenseestimatedAmount">予測収入金額：</label>
-    <input type="text" id="expenseestimatedAmount" th:field="*{estimatedAmount}">
+    <input type="text" id="expenseestimatedAmount" th:field="*{estimatedAmount}" class="js-format-amount">円
   </div>
   <div>
-    <button type="submit"> 編集</button>
+    <label for="expensestartDate" class="start-date-label">開始年月：</label>
+    <input type="month" id="expensestartDate" th:field="${expenseCategory.startDate}" class="start-date-input">
+  </div>
+  <br>
+  <div>
+    <button type="submit">追加</button>
   </div>
 </form>
 </div>
 <!-- 戻るボタン -->
 <p>
-  <a th:href="@{/category}" class="btn">メニューに戻る</a>
+  <a th:href="@{/category/list}" class="btn">リストへ</a>
 </p>
 <p>
-  <a th:href="@{/category/list}" class="btn">リストへ</a>
+  <a th:href="@{/category}" class="btn">メニューに戻る</a>
 </p>
 <p>
   <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
 <form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
   <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 </form>
+
 
 </body>
 </html>

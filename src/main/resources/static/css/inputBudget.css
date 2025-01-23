@@ -1,0 +1,218 @@
+/* 全体の背景と基本設定 */
+body {
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 1.5em;
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+/* ページタイトル */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 28px;
+}
+
+html {
+  height: 100%;
+}
+
+/* フォーム全体 */
+form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 90%;
+  max-width: 800px;
+}
+
+/* 年月選択部分 */
+.form-row {
+  display: flex;
+  align-items: center;
+}
+/* 年と月選択部分を囲むコンテナ */
+.year-month-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px; /* 年と月の間隔を調整 */
+  margin-bottom: 20px; /* 下の余白を追加 */
+}
+
+/* ラベル */
+.year-month-row label {
+  font-weight: bold;
+  color: #555;
+  margin-right: 5px;
+  font-size: 16px; /* ラベルのフォントサイズ */
+}
+
+/* セレクトボックス */
+.year-month-row select {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.year-month-row select:focus {
+  border-color: #007bff; /* フォーカス時の色 */
+  outline: none;
+}
+
+.form-row label {
+  padding-left: 15px;
+  font-weight: bold;
+  color: #555;
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+.form-row select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.form-row select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* ボタンのスタイル */
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 30px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 3px 6px rgba(0, 86, 179, 0.3);
+}
+
+/* テーブルのスタイル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* カテゴリ列と金額列の幅を統一 */
+  .category-column {
+    width: 40%; /* カテゴリ列の幅を70%に */
+  }
+
+  .amount-column {
+    width: 60%; /* 金額列の幅を30%に */
+  }
+
+thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+thead th {
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #e8f0fe;
+}
+
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+td input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+td input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* リンクボタン */
+a.cancel-btn {
+  display: inline-block;
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+a.cancel-btn:hover {
+  background-color: #d6d6d6;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row select {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  form {
+    width: 95%;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  a.cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+
+}

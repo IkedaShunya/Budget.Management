@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.YearMonth;
+
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
@@ -52,6 +54,7 @@ public class CategoryController {
         model.addAttribute("incomeCategories",categories.getIncomeCategories());
         model.addAttribute("expenseCategories",categories.getExpenseCategories());
 
+
         return "category/categorylist";
     }
 
@@ -68,9 +71,12 @@ public class CategoryController {
     }
 
     @PostMapping("/edit/execute-expenseCategory")
-    public String updateExpensecategory(@ModelAttribute ExpenseCategory expensecategory
+    public String updateExpensecategory(@RequestParam("startDate") YearMonth startDate,
+            @ModelAttribute ExpenseCategory expensecategory
             , BindingResult result, Model model, RedirectAttributes redirectAttributes){
 
+        // YearMonth を LocalDate に変換
+        expensecategory.setStartDate(startDate.atDay(1));
         service.updateExpenseCategoryinf(expensecategory);
         redirectAttributes.addFlashAttribute("message", "編集が完了しました");
         //mapping(java側にリダイレクトしている)
@@ -90,9 +96,12 @@ public class CategoryController {
     }
 
     @PostMapping("/edit/execute-incomeCategory")
-    public String updateIncomecategory(@ModelAttribute IncomeCategory incomeCategory
+    public String updateIncomecategory(@RequestParam("startDate") YearMonth startDate,
+            @ModelAttribute IncomeCategory incomeCategory
             , BindingResult result, Model model, RedirectAttributes redirectAttributes){
 
+        // YearMonth を LocalDate に変換
+        incomeCategory.setStartDate(startDate.atDay(1));
         service.updateIncomeCategoryinf(incomeCategory);
         redirectAttributes.addFlashAttribute("message", "編集が完了しました");
         //mapping(java側にリダイレクトしている)
@@ -125,17 +134,30 @@ public class CategoryController {
      * メニュー画面
      */
     @GetMapping("/insert")
-    public String insertCategory(){
+    public String insertCategory(Model model){
+        IncomeCategory inform = new IncomeCategory();
+        ExpenseCategory exform = new ExpenseCategory();
+        inform.setIsRegularIncome(1); // 初期値を「定期」に設定
+        exform.setIsFixedCost(1); // 初期値を「定期」に設定
+
+        model.addAttribute("incomeCategory", inform);
+        model.addAttribute("expenseCategory", exform);
+
         return "category/insertcate";
     }
 
 
 
     @PostMapping("/insert/execute-incomeCategory")
-    public String insertIncomecategory(@ModelAttribute IncomeCategory incomeCategory
+    public String insertIncomecategory(@RequestParam("startDate") YearMonth startDate,
+            @ModelAttribute IncomeCategory incomeCategory
             , BindingResult result, Model model, RedirectAttributes redirectAttributes){
 
         incomeCategory.setUserId(sessioninf.getLoginUserId());
+        // YearMonth を LocalDate に変換
+        incomeCategory.setStartDate(startDate.atDay(1));
+
+
         service.insertIncomeCategory(incomeCategory);
         redirectAttributes.addFlashAttribute("message", "収入カテゴリー追加が完了しました");
         //mapping(java側にリダイレクトしている)
@@ -143,10 +165,15 @@ public class CategoryController {
     }
 
     @PostMapping("/insert/execute-expenseCategory")
-    public String insertexpenseCategory(@ModelAttribute ExpenseCategory expensecategory
+    public String insertexpenseCategory(@RequestParam("startDate") YearMonth startDate,
+            @ModelAttribute ExpenseCategory expensecategory
             , BindingResult result, Model model, RedirectAttributes redirectAttributes){
 
         expensecategory.setUserId(sessioninf.getLoginUserId());
+        // YearMonth を LocalDate に変換
+        expensecategory.setStartDate(startDate.atDay(1));
+
+
         service.insertExpenseCategory(expensecategory);
         redirectAttributes.addFlashAttribute("message", "支出カテゴリー追加が完了しました");
         //mapping(java側にリダイレクトしている)

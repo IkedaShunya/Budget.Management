@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--どのマッパーに紐づくか定義する-->
+<mapper namespace="com.example.Budget.Management.repository.BankRepository">
+    <select id="selectBankInf" resultType="com.example.Budget.Management.entity.Bank">
+        SELECT bank_id, user_id, bank_name, delete_flag
+        FROM bank
+        WHERE user_id = #{userId};
+    </select>
+    <select id="selectBankInfbyBankId" resultType="com.example.Budget.Management.entity.Bank">
+        SELECT bank_id, user_id, bank_name, delete_flag
+        FROM bank
+        WHERE user_id = #{userId} AND bank_id = #{bankId};
+    </select>
+
+    <insert id="insertBankInf" parameterType="com.example.Budget.Management.entity.Bank">
+        INSERT INTO bank (user_id, bank_name)
+        VALUES
+        (#{userId}, #{bankName});
+    </insert>
+
+    <update id="updateBankInf" parameterType="com.example.Budget.Management.entity.Bank">
+        UPDATE bank
+        SET bank_name=#{bankName}, delete_flag=#{deleteFlag}
+        WHERE user_id = #{userId} AND bank_id = #{bankId};
+    </update>
+    <update id="deleteBankInf">
+        UPDATE bank
+        SET delete_flag=1
+        WHERE bank_id = #{bankId};
+    </update>
+
+
+</mapper>

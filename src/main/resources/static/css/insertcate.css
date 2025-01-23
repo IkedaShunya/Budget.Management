@@ -1,95 +1,16 @@
-@charset "UTF-8";
-
-/* 背景全体のスタイル */
+/* 基本設定 */
+/* 全体の背景色を設定 */
 body {
-    background-color: #fff6e4; /* 背景色 */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: #f4f4f4; /* 好きな背景色を指定 */
+  margin: 0; /* デフォルトの余白をリセット */
+  padding: 1.5em; /* デフォルトの余白をリセット */
+  font-family: Arial, sans-serif; /* フォントを指定（任意） */
+  color: #333; /* デフォルトのテキスト色を指定 */
+  line-height: 1.6; /* 行の高さを調整 */
 }
 
-/* ページタイトル */
-h1 {
-    text-align: center;
-    margin-top: 20px;
-    color: #333;
-    font-size: 28px;
-}
-
-/* ユーザー情報表示 */
-div {
-    width: 400px;
-    margin: 10px auto;
-    font-size: 16px;
-    color: #555;
-}
-
-div span {
-    font-weight: bold;
-    color: #333;
-}
-
-/* フォームスタイル */
-form {
-    width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* ラベル */
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* 入力フィールド */
-form input[type="text"],
-form input[type="password"],
-form select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: #333;
-}
-
-/* チェックボックス */
-form input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-/* チェックボックスラベル */
-form label[for="deleteFlag"] {
-    display: inline;
-    margin-left: 10px;
-}
-
-/* ボタン */
-form button {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    background-color: rgb(255, 128, 64);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-form button:hover {
-    background-color: red;
+html {
+  height: 100%; /* 背景色が全体に適用されるように */
 }
 
 
@@ -101,4 +22,174 @@ form button:hover {
 /* is_active が付与された場合にのみ表示 */
 .bl_selectCont.is_active {
   display: block;
+}
+
+/* ドロップダウンのスタイル */
+.bl_selectToggle {
+  background-color: white; /* 背景色 */
+  color: #333; /* テキスト色 */
+  border: 1px solid #ccc; /* ボーダー */
+  border-radius: 5px; /* 丸み */
+  padding: 10px 40px 10px 15px; /* 内側余白 */
+  font-size: 16px; /* フォントサイズ */
+  cursor: pointer; /* ポインタに変更 */
+  outline: none; /* フォーカスリングを非表示 */
+  transition: all 0.3s ease; /* アニメーション効果 */
+  position: relative; /* 相対位置 */
+  width: 250px; /* 幅調整 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 立体感を追加 */
+}
+
+/* ドロップダウンをクリック時に背景色を変更 */
+.bl_selectToggle:hover {
+  background-color: #e8f0fe; /* 背景色 */
+  border-color: #007bff; /* ボーダー色 */
+}
+
+/* 矢印のスタイルを追加 */
+.bl_selectToggle::after {
+  content: "▼"; /* 矢印を追加 */
+  font-size: 12px; /* 矢印サイズ */
+  color: #333; /* 矢印色 */
+  position: absolute;
+  right: 15px; /* 右側の余白 */
+  top: 50%;
+  transform: translateY(-50%); /* 中央寄せ */
+  pointer-events: none; /* クリックできないようにする */
+}
+
+/* フォーム全体のスタイル */
+form {
+  background-color: #f9f9f9; /* 背景色 */
+  padding: 20px; /* 内側余白 */
+  border: 1px solid #ddd; /* ボーダー */
+  border-radius: 8px; /* 丸み */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 立体感 */
+  margin: 20px auto; /* 上下中央寄せ */
+  width: 100%; /* 幅を調整 */
+  max-width: 600px; /* 最大幅を設定 */
+}
+
+/* ラベルのスタイル */
+form label {
+  font-weight: bold; /* 太字 */
+  color: #555; /* テキスト色 */
+  display: block; /* ブロック表示 */
+  margin-bottom: 8px; /* 下の余白 */
+  font-size: 1em;
+}
+
+/* テキストボックスのスタイル */
+form input[type="text"],
+form select {
+  width: auto; /* 横幅いっぱい */
+  padding: 10px; /* 内側余白 */
+  border: 1px solid #ccc; /* ボーダー */
+  border-radius: 5px; /* 丸み */
+  font-size: 16px; /* フォントサイズ */
+  margin-bottom: 20px; /* 下の余白 */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 内側に影 */
+  transition: border-color 0.3s ease;
+}
+
+/* テキストボックスやセレクトのフォーカス時 */
+form input[type="text"]:focus,
+form select:focus {
+  border-color: #007bff; /* フォーカス時のボーダー色 */
+  outline: none; /* アウトラインを非表示 */
+}
+
+
+/* ボタンのスタイル */
+form button {
+  background-color: #007bff; /* ボタンの背景色 */
+  color: #fff; /* テキスト色 */
+  border: none; /* ボーダーを消去 */
+  padding: 10px 20px; /* 内側余白 */
+  border-radius: 5px; /* 丸み */
+  font-size: 16px; /* フォントサイズ */
+  cursor: pointer; /* ポインタに変更 */
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3); /* ボタンに影を追加 */
+}
+
+/* ボタンホバー時 */
+form button:hover {
+  background-color: #0056b3; /* ホバー時の背景色 */
+  box-shadow: 0 3px 6px rgba(0, 86, 179, 0.3); /* 影を強調 */
+}
+
+/* リンクボタンのスタイル */
+a.btn {
+  display: inline-block;
+  background-color: #007BFF; /* 緑色 */
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px 5px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3); /* 影を追加 */
+}
+
+/* リンクボタンのホバー */
+a.btn:hover {
+  background-color: #218838; /* 濃い緑 */
+  box-shadow: 0 3px 6px rgba(33, 136, 56, 0.3);
+}
+
+/* 開始年月フィールド全体のスタイル */
+.start-date-container {
+  margin-bottom: 20px; /* 下の余白 */
+}
+
+/* ラベルの共通スタイル */
+.start-date-label {
+  font-weight: bold; /* 太字 */
+  color: #555; /* テキスト色 */
+  display: block; /* ブロック表示 */
+  margin-bottom: 8px; /* 下の余白 */
+  font-size: 1em; /* フォントサイズ */
+}
+
+/* 開始年月入力フィールドの共通スタイル */
+.start-date-input {
+  width: auto; /* 横幅を最大に */
+  margin-bottom: 20px;
+  padding: 10px; /* 内側余白 */
+  border: 1px solid #ccc; /* ボーダー */
+  border-radius: 5px; /* 丸み */
+  font-size: 16px; /* フォントサイズ */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 内側に影 */
+  transition: border-color 0.3s ease; /* ボーダー色の変化にアニメーション */
+}
+
+/* フォーカス時のスタイル */
+.start-date-input:focus {
+  border-color: #007bff; /* フォーカス時のボーダー色 */
+  outline: none; /* アウトラインを消去 */
+}
+
+
+
+/* モバイル端末対応 */
+@media (max-width: 768px) {
+  .bl_selectToggle {
+    width: 100%; /* 横幅を100%に */
+    font-size: 14px; /* フォントサイズを少し小さく */
+  }
+
+  .start-date-input {
+      font-size: 14px; /* フォントサイズを少し小さく */
+    }
+
+  form {
+    width: 95%; /* フォームの幅を調整 */
+  }
+
+  a.btn {
+    width: 100%; /* ボタンを全幅に */
+    text-align: center;
+  }
 }

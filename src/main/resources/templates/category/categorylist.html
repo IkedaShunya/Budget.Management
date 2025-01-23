@@ -4,6 +4,51 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/categorylist.css}" rel="stylesheet" />
     <title>カテゴリー一覧</title>
+    <script>
+        // カンマ区切りにフォーマットする関数
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        // 収入と支出の合計を計算して表示する関数
+        function updateTotals() {
+            let incomeTotal = 0;
+            let expenseTotal = 0;
+
+            // 収入の合計を計算
+            document.querySelectorAll('.income-table .amount').forEach(function (element) {
+                let value = parseInt(element.textContent.replace(/,/g, ''), 10);
+                if (!isNaN(value)) {
+                    incomeTotal += value;
+                }
+            });
+
+            // 支出の合計を計算
+            document.querySelectorAll('.expense-table .amount').forEach(function (element) {
+                let value = parseInt(element.textContent.replace(/,/g, ''), 10);
+                if (!isNaN(value)) {
+                    expenseTotal += value;
+                }
+            });
+
+            // 合計を表示
+            document.getElementById('income-total').textContent = formatNumber(incomeTotal) + '円';
+            document.getElementById('expense-total').textContent = formatNumber(expenseTotal) + '円';
+        }
+
+        // ページ読み込み時に金額をフォーマットして合計を計算
+        window.onload = function () {
+            document.querySelectorAll('.amount').forEach(function (element) {
+                let value = parseInt(element.textContent, 10);
+                if (!isNaN(value)) {
+                    element.textContent = formatNumber(value) + '円';
+                }
+            });
+
+            // 合計値を更新
+            updateTotals();
+        };
+    </script>
 </head>
 <body>
 <h1>カテゴリー一覧</h1>
@@ -13,52 +58,71 @@
     </ul>
 </div>
 <h2>収入</h2>
-<table border="1">
+<table class="income-table" border="1">
     <thead>
     <tr>
         <th>形態</th>
         <th>カテゴリ名</th>
         <th>予想収入金額 (円)</th>
+        <th>開始年月</th>
         <th>削除</th>
         <th>編集</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each ="incomeCategory : ${incomeCategories}">
+    <tr th:each="incomeCategory : ${incomeCategories}">
         <td th:text="${incomeCategory.isRegularIncome == 1 ? '定期' : (incomeCategory.isRegularIncome == 0 ? '不定期' : null)}">定期</td>
         <td th:text="${incomeCategory.categoryName}">給与</td>
-        <td th:text="${incomeCategory.estimatedAmount + '円'}">1000円</td>
+        <td class="amount" th:text="${incomeCategory.estimatedAmount}"></td>
+        <td th:text="${#temporals.format(incomeCategory.startDate, 'yyyy/MM')}">2024/01</td>
         <td><a th:href="@{/category/delete-incomeCategory(id=${incomeCategory.categoryId})}">削除</a></td>
         <td><a th:href="@{/category/edit-incomeCategory(id=${incomeCategory.categoryId})}">編集</a></td>
     </tr>
     </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="2">合計</td>
+        <td id="income-total"  style="text-align: center; font-weight: bold;">>0円</td>
+        <td colspan="2"></td>
+    </tr>
+    </tfoot>
 </table>
+
 <h2>支出</h2>
-<table border="1">
-<thead>
-<tr>
-    <th>費用区分</th>
-    <th>カテゴリ名</th>
-    <th>予想支出金額 (円)</th>
-    <th>削除</th>
-    <th>編集</th>
- </tr>
-</thead>
+<table class="expense-table" border="1">
+    <thead>
+    <tr>
+        <th>費用区分</th>
+        <th>カテゴリ名</th>
+        <th>予想支出金額 (円)</th>
+        <th>開始年月</th>
+        <th>削除</th>
+        <th>編集</th>
+    </tr>
+    </thead>
     <tbody>
-    <tr th:each ="expenseCategory : ${expenseCategories}">
+    <tr th:each="expenseCategory : ${expenseCategories}">
         <td th:text="${expenseCategory.isFixedCost == 1 ? '固定費' : (expenseCategory.isFixedCost == 0 ? '変動費' : null)}">固定費</td>
         <td th:text="${expenseCategory.categoryName}">家賃</td>
-        <td th:text="${expenseCategory.estimatedAmount + '円'}">1000円</td>
+        <td class="amount" th:text="${expenseCategory.estimatedAmount}"></td>
+        <td th:text="${#temporals.format(expenseCategory.startDate, 'yyyy/MM')}">2024/01</td>
         <td><a th:href="@{/category/delete-expenseCategory(id=${expenseCategory.categoryId})}">削除</a></td>
         <td><a th:href="@{/category/edit-expenseCategory(id=${expenseCategory.categoryId})}">編集</a></td>
     </tr>
     </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="2">合計</td>
+        <td id="expense-total" style="text-align: center; color: red; font-weight: bold;">0円</td>
+        <td colspan="2"></td>
+    </tr>
+    </tfoot>
 </table>
 <p>
-    <a th:href="@{/category}" class="btn">メニューに戻る</a>
+    <a th:href="@{/category/insert}" class="btn">カテゴリ追加</a>
 </p>
 <p>
-    <a th:href="@{/category/insert}" class="btn">カテゴリ追加</a>
+    <a th:href="@{/category}" class="btn">メニューに戻る</a>
 </p>
 <p>
     <a href="#" class="btn" onclick="document.getElementById('logout-form').submit(); return false;">ログアウト</a>
