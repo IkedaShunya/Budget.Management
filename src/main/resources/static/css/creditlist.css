@@ -1,0 +1,168 @@
+/* categorylist.css */
+
+/* 全体のスタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 1.5em;
+    line-height: 1.6;
+}
+
+/* ヘッダー */
+h1 {
+    text-align: center;
+    color: #444;
+    margin-top: 20px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h2 {
+    color: #666;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 1.8em;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+/* メッセージ */
+div[th\\:if] {
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #f00;
+    border-radius: 5px;
+    background-color: #ffe6e6;
+    max-width: 80%;
+}
+
+/* テーブルスタイル */
+table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+table thead {
+    background-color: #f7f7f7;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 1em;
+}
+
+table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #555;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+/* ボタンスタイル */
+a.btn {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+a.btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 3px 6px rgba(0, 86, 179, 0.3);
+}
+
+/* フォームスタイル */
+form {
+    display: inline-block;
+}
+
+/* リンクの装飾 */
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* 列ごとに比率を設定 */
+table th:nth-child(1), /* ID */
+table td:nth-child(1) {
+    width: 10%; /* 形態の幅 */
+}
+
+table th:nth-child(2), /* クレジット名 */
+table td:nth-child(2) {
+    width: 25%; /* カテゴリ名の幅 */
+}
+
+table th:nth-child(3), /* 振込先 */
+table td:nth-child(3) {
+    width: 22%; /* 金額列の幅 */
+}
+
+table th:nth-child(4), /* 支払日 */
+table td:nth-child(4) {
+    width: 11%; /* 開始年月 */
+}
+
+table th:nth-child(5),/* 削除フラグ */
+table td:nth-child(5) {
+    width: 11%; /* 削除列の幅 */
+}
+
+table th:nth-child(6),/* 削除 */
+table td:nth-child(6) {
+    width: 10%; /* 削除列の幅 */
+}
+table th:nth-child(7),/*編集 */
+table td:nth-child(7) {
+    width: 10%; /* 削除列の幅 */
+}
+
+
+
+/* スマホ対応のレスポンシブデザイン */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9em;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    a.btn {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}

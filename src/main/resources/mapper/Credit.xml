@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--どのマッパーに紐づくか定義する-->
-<mapper namespace="com.example.Budget.Management.repository.CategoryRepository">
+<mapper namespace="com.example.Budget.Management.repository.CreditRepository">
     <select id="selectCreditInf" resultType="com.example.Budget.Management.entity.Credit">
         SELECT
         c.creditcard_id AS creditcardId,
@@ -15,7 +15,7 @@
         FROM creditcard c
         INNER JOIN bank b
         ON c.bank_id  = b.bank_id
-        WHERE user_id = #{userId};
+        WHERE c.user_id = #{userId};
     </select>
 
     <select id="selectBankInfbyCreditId" resultType="com.example.Budget.Management.entity.Credit">
@@ -31,7 +31,7 @@
         FROM creditcard c
         INNER JOIN bank b
         ON c.bank_id  = b.bank_id
-        WHERE user_id = #{userId};
+        WHERE c.user_id = #{userId} AND c.creditcard_id= #{creditcardId};
     </select>
 
 
@@ -44,8 +44,8 @@
 
     <update id="updateCreditInf" parameterType="com.example.Budget.Management.entity.Credit">
         UPDATE creditcard
-        SET bank_name=#{creditcardName}, bank_id=#{bankId}, TransferDate=#{TransferDate},delete_flag=#{deleteFlag}
-        WHERE user_id = #{userId} AND bank_id = #{bankId};
+        SET creditcard_name=#{creditcardName}, bank_id=#{bankId}, TransferDate=#{TransferDate},delete_flag=#{deleteFlag}
+        WHERE user_id = #{userId} AND creditcard_id = #{creditcardId};
     </update>
     <update id="deleteCreditInf">
         UPDATE creditcard
