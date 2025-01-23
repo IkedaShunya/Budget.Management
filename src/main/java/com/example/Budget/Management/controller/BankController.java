@@ -66,6 +66,8 @@ public class BankController {
 
     @GetMapping("/insert")
     public String insertDisplay(Model model){
+        List<Bank> bankList = service.searchBankInf(sessioninf.getLoginUserId());
+        model.addAttribute("bankList",bankList);
         return "bank/insertBankInf";
     }
 

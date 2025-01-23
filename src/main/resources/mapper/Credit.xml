@@ -44,7 +44,7 @@
 
     <update id="updateCreditInf" parameterType="com.example.Budget.Management.entity.Credit">
         UPDATE creditcard
-        SET creditcard_name=#{creditcardName}, bank_id=#{bankId}, TransferDate=#{TransferDate},delete_flag=#{deleteFlag}
+        SET creditcard_name=#{creditcardName}, bank_id=#{bankId}, TransferDate=#{TransferDate}
         WHERE user_id = #{userId} AND creditcard_id = #{creditcardId};
     </update>
     <update id="deleteCreditInf">
