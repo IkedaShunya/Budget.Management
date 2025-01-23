@@ -43,6 +43,7 @@ public class CreditService {
     /**
      *Credit情報の更新
      */
+    //
     public void updateCreditInf(Credit credit){
         repository.updateCreditInf(credit);
     }
